@@ -17,6 +17,19 @@ Create three authoritative artifacts in sequence. Never implement product code w
 - Do not interpret user approval of one artifact as approval of later artifacts.
 - Do not fabricate clinical, legal, regulatory, privacy, security, or organizational policy.
 - If the project is regulated or safety-sensitive, make unresolved governance decisions explicit release gates.
+- If `.sdd/knowledge/index.md` exists, treat it as curated brownfield context, not as approved requirements or policy. Read the index first, load only relevant linked concepts, preserve their provenance/confidence labels, and verify material claims against source when stale, inferred, ambiguous, or incomplete.
+
+## Brownfield context
+
+Before Stage 1 in an existing repository:
+
+1. Inspect `.sdd/knowledge/index.md` and its linked `bundle-state.md` when present. Compare the recorded revision and source fingerprint with the current repository state, then check relevant concepts for expired `stale_after` or `curation_status: stale|conflicted`.
+2. If the bundle is stale or conflicted, recommend `$analyze-brownfield-context` and do not silently treat its claims as current. Continue only when the user accepts clearly labeled direct-inspection assumptions or the context is refreshed.
+3. Use the bundle for current-system boundaries, interfaces, data, operations, constraints, glossary, risks, and open questions. Use scoped Graphify queries for focused follow-up when `graphify-out/graph.json` exists.
+4. Cite relevant OKF concepts and source evidence in decisions and design rationale. Convert uncertainty or conflicts into explicit assumptions, dependencies, or blocking questions.
+5. Apply this authority order: approved requirements and policy; human-confirmed decisions; verified source/configuration facts; curated OKF summaries; Graphify inferences.
+
+Absence of an OKF bundle is not an error. Inspect the repository normally, and recommend `$analyze-brownfield-context` when the change spans multiple subsystems or durable brownfield context would materially improve planning.
 
 Read [references/artifact-contracts.md](references/artifact-contracts.md) before creating or materially revising any artifact. Read [references/approval-protocol.md](references/approval-protocol.md) when advancing stages.
 

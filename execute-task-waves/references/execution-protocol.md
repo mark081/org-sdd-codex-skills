@@ -50,6 +50,8 @@ Use concise, reproducible evidence:
 
 Do not include secrets, PHI, raw prompts, or oversized logs.
 
+When the repository has Graphify or `.sdd/knowledge/`, also record the graph refresh result, affected OKF concepts, bundle validation, and any deliberately deferred knowledge update. An implementation task is not complete when its required brownfield context remains silently stale.
+
 ## Checkpoints
 
 Automated checkpoints require all listed commands and artifacts. Human governance checkpoints require explicit approval from the named role. Never manufacture sign-off or treat test success as clinical, legal, privacy, or security approval.

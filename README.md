@@ -1,14 +1,18 @@
 # SDD Codex Skills
 
-Two complementary Codex skills for running a gated Specification-Driven Development workflow:
+Three complementary Codex skills for brownfield discovery and gated Specification-Driven Development:
 
+- **`analyze-brownfield-context`** maps an existing repository with Graphify and curates durable findings into an OKF v0.2 knowledge bundle.
 - **`spec-to-task-plan`** turns a product or feature prompt into separately approved `REQUIREMENTS.md`, `DESIGN.md`, and `TASKS.md` artifacts.
 - **`execute-task-waves`** executes an approved `TASKS.md` plan in dependency order, verifies each wave, and records completion evidence centrally.
 
 ## Workflow
 
 ```text
-Product or feature prompt
+Existing repository
+  → $analyze-brownfield-context
+  → reviewed .sdd/knowledge OKF bundle
+  → product or feature prompt
   → $spec-to-task-plan
   → approve REQUIREMENTS.md
   → approve DESIGN.md
@@ -21,20 +25,27 @@ The planning skill never implements product code. The execution skill requires a
 
 ## Install
 
-Clone this repository somewhere durable, then copy or symlink both skill directories into `~/.codex/skills/`:
+Clone this repository somewhere durable, then copy or symlink all three skill directories into `~/.codex/skills/`:
 
 ```sh
 git clone https://github.com/mark081/sdd-codex-skills.git
 mkdir -p ~/.codex/skills
+ln -s "$PWD/sdd-codex-skills/analyze-brownfield-context" ~/.codex/skills/analyze-brownfield-context
 ln -s "$PWD/sdd-codex-skills/spec-to-task-plan" ~/.codex/skills/spec-to-task-plan
 ln -s "$PWD/sdd-codex-skills/execute-task-waves" ~/.codex/skills/execute-task-waves
 ```
 
-If either destination already exists, inspect and back it up before replacing it. Restart Codex after installation so it reloads the skill catalog.
+If any destination already exists, inspect and back it up before replacing it. Restart Codex after installation so it reloads the skill catalog.
 
 ## Use
 
 Open Codex in a project repository and invoke:
+
+```text
+Use $analyze-brownfield-context to map this existing repository and create or refresh its OKF knowledge bundle.
+```
+
+After reviewing the generated context, invoke:
 
 ```text
 Use $spec-to-task-plan to turn this feature request into requirements, design, and executable tasks: <prompt>
@@ -51,7 +62,8 @@ The skills honor the nearest `AGENTS.md`. The planning workflow currently uses e
 ## Requirements
 
 - Codex with local skill support
-- Python 3 for the bundled validators and wave resolver
+- Python 3 and PyYAML for the bundled validators and wave resolver
+- Graphify (`graphify` CLI from the `graphifyy` package) for brownfield extraction
 - A version-controlled project workspace
 
 Core validation is local and does not require network access.
