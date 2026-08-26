@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spec to Task Plan"
+  short_description: "Create gated requirements, design, and tasks"
+  default_prompt: "Use $spec-to-task-plan to turn my product prompt into approved REQUIREMENTS.md, DESIGN.md, and TASKS.md artifacts."

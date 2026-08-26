@@ -1,0 +1,4 @@
+interface:
+  display_name: "Execute Task Waves"
+  short_description: "Execute dependency-ready task waves safely"
+  default_prompt: "Use $execute-task-waves to execute the next dependency-ready wave in TASKS.md and verify it before continuing."
