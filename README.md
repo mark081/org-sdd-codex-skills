@@ -25,6 +25,21 @@ The planning skill never implements product code. The execution skill requires a
 
 ## Install
 
+### 1. Install Graphify
+
+The `analyze-brownfield-context` skill requires the Graphify CLI. The Python package is named `graphifyy` (with two `y` characters), while the installed command is `graphify`:
+
+```sh
+uv tool install graphifyy
+graphify --version
+```
+
+If `graphify` is not found after installation, run `uv tool update-shell`, open a new terminal, and retry `graphify --version`.
+
+Graphify is required only for brownfield graph creation and refresh. The specification and task-execution validators remain usable without it when a repository has no Graphify graph or OKF brownfield bundle.
+
+### 2. Install the Codex skills
+
 Clone this repository somewhere durable, then copy or symlink all three skill directories into `~/.codex/skills/`:
 
 ```sh
@@ -63,7 +78,8 @@ The skills honor the nearest `AGENTS.md`. The planning workflow currently uses e
 
 - Codex with local skill support
 - Python 3 and PyYAML for the bundled validators and wave resolver
-- Graphify (`graphify` CLI from the `graphifyy` package) for brownfield extraction
+- `uv` for isolated dependency and CLI installation
+- Graphify (`graphify` CLI installed from the `graphifyy` package) for brownfield extraction and refresh
 - A version-controlled project workspace
 
 Core validation is local and does not require network access.
