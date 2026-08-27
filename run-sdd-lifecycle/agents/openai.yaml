@@ -1,0 +1,4 @@
+interface:
+  display_name: "Run SDD Lifecycle"
+  short_description: "Orchestrate the gated SDD workflow end to end"
+  default_prompt: "Use $run-sdd-lifecycle to take this repository change through analysis, specification, planning, and execution."
