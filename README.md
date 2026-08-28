@@ -45,7 +45,9 @@ Graphify is required only for brownfield graph creation and refresh. The specifi
 
 ### 2. Install the Codex skills
 
-Clone this repository somewhere durable, then copy or symlink all four skill directories into `~/.codex/skills/`:
+Clone this repository somewhere durable, then link all four skill directories into your Codex skills directory.
+
+#### macOS and Linux
 
 ```sh
 git clone https://github.com/mark081/sdd-codex-skills.git
@@ -56,7 +58,40 @@ ln -s "$PWD/sdd-codex-skills/execute-task-waves" ~/.codex/skills/execute-task-wa
 ln -s "$PWD/sdd-codex-skills/run-sdd-lifecycle" ~/.codex/skills/run-sdd-lifecycle
 ```
 
-If any destination already exists, inspect and back it up before replacing it. Restart Codex after installation so it reloads the skill catalog.
+#### Windows PowerShell
+
+Run these commands from the parent directory where you want to keep the cloned repository:
+
+```powershell
+git clone https://github.com/mark081/sdd-codex-skills.git
+
+$repoRoot = (Resolve-Path ".\sdd-codex-skills").Path
+$skillsRoot = Join-Path $env:USERPROFILE ".codex\skills"
+New-Item -ItemType Directory -Force -Path $skillsRoot | Out-Null
+
+@(
+    "analyze-brownfield-context",
+    "spec-to-task-plan",
+    "execute-task-waves",
+    "run-sdd-lifecycle"
+) | ForEach-Object {
+    $destination = Join-Path $skillsRoot $_
+    if (Test-Path $destination) {
+        throw "Destination already exists: $destination"
+    }
+    New-Item -ItemType Junction -Path $destination -Target (Join-Path $repoRoot $_) | Out-Null
+}
+```
+
+The junctions let future `git pull` updates take effect without copying the skill directories again. If your environment does not permit junctions, replace the `New-Item -ItemType Junction` line inside the loop with:
+
+```powershell
+Copy-Item -Recurse -Path (Join-Path $repoRoot $_) -Destination $destination
+```
+
+Repeat the copy after repository updates.
+
+On every platform, inspect and back up any existing destination before replacing it. Restart Codex after installation so it reloads the skill catalog.
 
 ## Use
 
