@@ -28,6 +28,21 @@ The planning skill never implements product code. The execution skill requires a
 
 `run-sdd-lifecycle` is the recommended entry point when you want Codex to determine the current stage and coordinate the full workflow. It derives state from the repository artifacts rather than maintaining a separate workflow-status file.
 
+## Optional: Ponytail
+
+[Ponytail](https://github.com/DietrichGebert/ponytail) can be used as an optional implementation-minimization layer during `execute-task-waves`. The SDD artifacts define what must be built; Ponytail helps find the smallest implementation that satisfies those approved contracts.
+
+Install it through the Codex plugin marketplace:
+
+```sh
+codex plugin marketplace add DietrichGebert/ponytail
+codex plugin add ponytail@ponytail
+```
+
+Ponytail's Codex integration uses Node.js lifecycle hooks. Ensure `node` is on `PATH`, open `/hooks` in Codex, review and trust the hooks, and start a new task. See Ponytail's repository for current installation and platform details.
+
+When Ponytail is available or requested, `execute-task-waves` asks once before the first executable wave for `lite`, `full`, or `off`; `lite` is the recommended default. The selection is a workflow preference, not an approval gate. Ponytail is never required, and its recommendations cannot remove or weaken approved requirements, design, acceptance criteria, tests, evidence, security, privacy, accessibility, error handling, or governance controls.
+
 ## Install
 
 ### 1. Install Graphify
