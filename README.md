@@ -157,4 +157,6 @@ Each skill contains:
 
 ## License
 
-No open-source license has been granted yet. The repository is public for inspection and controlled reuse; add an explicit license before broader redistribution.
+Copyright 2026 Mark Cooper and SierraX Technologies.
+
+Licensed under the [Apache License 2.0](LICENSE). See [NOTICE](NOTICE) for attribution information.
