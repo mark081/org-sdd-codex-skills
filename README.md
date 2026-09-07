@@ -6,19 +6,20 @@ This is the organizational agentic architecture layer **above the individual SDD
 
 ## Federation model
 
-```text
-Organizational initiative — $coordinate-org-sdd
-Shared contracts · owners · dependencies · revision-bound approvals
-                 │ bounded handoffs
-        ┌────────┼────────┐
-        ▼        ▼        ▼
-     Team A   Team B   Team C
-     Repo A   Repo B   Repo C
-        Each runs $run-sdd-lifecycle
-        with its own specs, approvals, and execution waves
-        └────────┼────────┘
-                 ▲ local evidence and reviewed boundary knowledge
-Integration verification → separate release-authority review
+```mermaid
+flowchart TD
+    ORG["Organizational initiative<br/>$coordinate-org-sdd"]
+    SHARED["Shared contracts, owners, dependencies<br/>and revision-bound approvals"]
+    ORG <--> SHARED
+    SHARED -->|Bounded handoff| A["Team A / Repo A<br/>$run-sdd-lifecycle"]
+    SHARED -->|Bounded handoff| B["Team B / Repo B<br/>$run-sdd-lifecycle"]
+    SHARED -->|Bounded handoff| C["Team C / Repo C<br/>$run-sdd-lifecycle"]
+    A --> EVIDENCE["Local completion evidence<br/>and reviewed boundary knowledge"]
+    B --> EVIDENCE
+    C --> EVIDENCE
+    EVIDENCE -->|Reconcile shared records| SHARED
+    EVIDENCE --> INTEGRATION["Owner-run integration verification"]
+    INTEGRATION --> RELEASE["Separate release-authority review"]
 ```
 
 Federation means sharing obligations and evidence without transferring ownership:
@@ -71,19 +72,21 @@ Start with one initiative and add participants incrementally. Use the [adoption 
 
 ### Local workflow inside each team
 
-```text
-Use $run-sdd-lifecycle for an end-to-end change
-  ↓
-Existing repository
-  → $analyze-brownfield-context
-  → reviewed .sdd/knowledge OKF bundle
-  → product or feature prompt
-  → $spec-to-task-plan
-  → approve REQUIREMENTS.md
-  → approve DESIGN.md
-  → approve TASKS.md
-  → $execute-task-waves
-  → verified implementation waves
+```mermaid
+flowchart TD
+    START["$run-sdd-lifecycle<br/>Repository-level change"]
+    START --> CONTEXT{"Brownfield analysis needed?"}
+    CONTEXT -->|Yes| ANALYZE["$analyze-brownfield-context"]
+    ANALYZE --> KNOWLEDGE["Reviewed .sdd/knowledge<br/>OKF bundle"]
+    KNOWLEDGE --> PLAN["$spec-to-task-plan<br/>Product or feature prompt"]
+    CONTEXT -->|No| PLAN
+    PLAN --> REQ["Approve REQUIREMENTS.md"]
+    REQ --> DESIGN["Approve DESIGN.md"]
+    DESIGN --> TASKS["Approve TASKS.md"]
+    TASKS --> READY["Check local dependencies and<br/>applicable organizational prerequisites"]
+    READY --> EXECUTE["$execute-task-waves<br/>Execute authorized, ready work"]
+    EXECUTE --> VERIFIED["Verify implementation wave"]
+    VERIFIED --> REFRESH["Refresh affected knowledge<br/>and prepare completion evidence"]
 ```
 
 The planning skill never implements product code. The execution skill requires an explicitly approved task plan and stops at failed verification, missing authority, or human governance gates.
