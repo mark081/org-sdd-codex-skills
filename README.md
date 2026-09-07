@@ -1,16 +1,56 @@
-# SDD Codex Skills
+# Organizational SDD Codex Skills
 
-Five complementary Codex skills for repository-level Specification-Driven Development and optional cross-team coordination:
+Federated Specification-Driven Development (SDD) for engineering organizations: coordinate cross-team initiatives through shared contracts, explicit ownership, revision-pinned handoffs, and integration evidence while each team retains control of its repository and delivery workflow.
+
+This is the organizational agentic architecture layer **above the individual SDD harness**. It connects independently owned local workflows; it does not replace them with a central agent or require every team to share a checkout. The package provides five Codex skills, versioned artifact contracts, reusable templates, and deterministic local validators—not a hosted control plane or autonomous swarm service.
+
+## Federation model
+
+```text
+Organizational initiative — $coordinate-org-sdd
+Shared contracts · owners · dependencies · revision-bound approvals
+                 │ bounded handoffs
+        ┌────────┼────────┐
+        ▼        ▼        ▼
+     Team A   Team B   Team C
+     Repo A   Repo B   Repo C
+        Each runs $run-sdd-lifecycle
+        with its own specs, approvals, and execution waves
+        └────────┼────────┘
+                 ▲ local evidence and reviewed boundary knowledge
+Integration verification → separate release-authority review
+```
+
+Federation means sharing obligations and evidence without transferring ownership:
+
+- **Team autonomy:** local `REQUIREMENTS.md`, `DESIGN.md`, and `TASKS.md` remain authoritative for local work. Organizational readiness never bypasses a local approval gate.
+- **Shared agreements:** API, event, data, and nonfunctional contracts identify providers, consumers, accountable owners, exact revisions, and acceptance checks.
+- **Dependency-aware delivery:** an approved contract can enable planning before a provider finishes implementation. Execution checks the prerequisites for the affected work; independent work remains distinguishable from blocked work.
+- **Evidence-aware change:** changed contracts or source revisions expose stale approvals and affected consumers. Local completion, integration verification, and release approval are separate states.
+- **Federated knowledge:** reviewed boundary metadata and evidence references connect local knowledge bundles. Private source and detailed repository knowledge need not be copied into a central graph.
+
+Coordination lives in a Git-based workspace under `initiatives/<initiative-id>/`. Teams opt in through `.sdd/org/context.json` or an explicit session handoff. The coordinator drafts and checks records; it does not automatically dispatch teams, modify other repositories, authenticate approvers, run integration tests, or release software. Cross-initiative graph traversal is not automatic in this version.
+
+## Choose your entry point
+
+| Your scope | Start with | Responsibility |
+| --- | --- | --- |
+| Cross-team or cross-repository initiative | `$coordinate-org-sdd` | Agree on boundaries, prepare handoffs, check dependencies, and reconcile integration evidence |
+| A team's contribution to that initiative | `$run-sdd-lifecycle` with its organizational handoff | Deliver locally while preserving shared obligations and local gates |
+| A standalone repository change | `$run-sdd-lifecycle` | Run the original local workflow without organizational setup |
+
+### The five skills
+
+- **`coordinate-org-sdd`** coordinates independently owned repositories through shared contracts, pinned handoffs and integration evidence. It drafts and checks records; it does not dispatch teams or authorize releases.
+- **`run-sdd-lifecycle`** orchestrates the three local stage skills as one resumable workflow, consuming organizational context when supplied and preserving every approval and governance gate.
 
 - **`analyze-brownfield-context`** maps an existing repository with Graphify and curates durable findings into an OKF v0.2 knowledge bundle.
 - **`spec-to-task-plan`** turns a product or feature prompt into separately approved `REQUIREMENTS.md`, `DESIGN.md`, and `TASKS.md` artifacts.
 - **`execute-task-waves`** executes an approved `TASKS.md` plan in dependency order, verifies each wave, and records completion evidence centrally.
-- **`run-sdd-lifecycle`** orchestrates the other three skills as one resumable workflow while preserving every approval and governance gate.
-- **`coordinate-org-sdd`** coordinates independently owned repositories through shared contracts, pinned handoffs and integration evidence. It drafts and checks records; it does not dispatch teams or authorize releases.
 
-Start with `$run-sdd-lifecycle` for one repository. Start with `$coordinate-org-sdd` for a cross-team initiative, then hand bounded work to each team's local lifecycle. Local `REQUIREMENTS.md`, `DESIGN.md` and `TASKS.md` remain authoritative. Without explicit organizational participation, the individual workflow stays unchanged.
+## Quick start: see federation in action
 
-Try the read-only [three-team tutorial](docs/organizational-sdd-tutorial.md) before installing anything. From this checkout, with Python on PATH:
+Try the read-only [three-team tutorial](docs/organizational-sdd-tutorial.md) before installing anything. Catalog provides an API, Checkout consumes it, and Analytics consumes its derived event. Nine snapshots demonstrate shared-contract approval, blocked execution, a breaking change, migration, integration, release review, and knowledge refresh. From this checkout, with Python on PATH:
 
 ```sh
 python3 examples/three-team/run_example.py --snapshot 02-approved-contract --coordinator-skill coordinate-org-sdd --allow-illustrative --format json
@@ -18,7 +58,18 @@ python3 examples/three-team/run_example.py --snapshot 02-approved-contract --coo
 
 Expected: exit 0, three planning stages ready, `illustrative: true`. No implementation tests, approval, publication or release occur. PowerShell users can use `python` with the same arguments. The [adoption guide](docs/organizational-sdd-adoption.md) covers real ownership, policy inputs, revision changes and safe departure.
 
-## Workflow
+## Organizational workflow
+
+1. **Define one initiative.** Identify participating repositories, accountable owners, scope, approval rules, and disclosure boundaries. Leave missing decisions explicitly unresolved.
+2. **Agree on shared contracts.** Review obligations and acceptance checks, then bind approvals to their exact revisions.
+3. **Prepare team handoffs.** Pin each contribution's scope, contract references, stage-specific dependencies, and expected evidence. Supply the handoff to the team's local lifecycle.
+4. **Deliver within each repository.** Approve requirements, design, and tasks separately; execute eligible local waves and check organizational prerequisites before affected work begins.
+5. **Verify integration and review release.** Collect revision-bound local evidence, obtain owner-run integration results, and request the separate release authority's approval. A passing validator is not human approval or a deployment.
+6. **Keep the federation current.** Refresh affected local knowledge, prepare authorized boundary updates, and revalidate contracts, consumer handoffs, and approvals when their inputs change.
+
+Start with one initiative and add participants incrementally. Use the [adoption and recovery guide](docs/organizational-sdd-adoption.md) for ownership changes, stale evidence, contract conflicts, and returning a repository to standalone operation.
+
+### Local workflow inside each team
 
 ```text
 Use $run-sdd-lifecycle for an end-to-end change
@@ -37,7 +88,7 @@ Existing repository
 
 The planning skill never implements product code. The execution skill requires an explicitly approved task plan and stops at failed verification, missing authority, or human governance gates.
 
-`run-sdd-lifecycle` is the recommended entry point when you want Codex to determine the current stage and coordinate the full workflow. It derives state from the repository artifacts rather than maintaining a separate workflow-status file.
+`run-sdd-lifecycle` is the repository-level entry point. It derives state from the repository artifacts rather than maintaining a separate workflow-status file. Without explicit organizational participation, this individual workflow stays unchanged.
 
 ## Optional: Ponytail
 
@@ -64,7 +115,7 @@ Graphify is required only for brownfield graph creation and refresh. The specifi
 
 ### Install the five Codex skills
 
-Use an inspected checkout in a durable location and run the relevant block from its repository root. If you need a checkout, obtain one through your normal Git workflow from [the repository](https://github.com/mark081/sdd-codex-skills). Installation changes the selected Codex skills directory; the tutorial does not require installation.
+Use an inspected checkout in a durable location and run the relevant block from its repository root. If you need a checkout, obtain one through your normal Git workflow from [org-sdd-codex-skills](https://github.com/mark081/org-sdd-codex-skills). Installation changes the selected Codex skills directory; the tutorial does not require installation.
 
 Both blocks respect `CODEX_HOME`; otherwise they use your user profile's `.codex` directory. They preflight all five destinations and refuse existing files, directories, links, junctions and broken symlinks. Inspect and preserve any existing installation before choosing a replacement; do not add force-overwrite flags. Run installation without another process concurrently changing the same destinations.
 
@@ -156,6 +207,43 @@ To roll back, preserve the failed version, restore the exact backed-up destinati
 
 ## Use
 
+### Start an organizational initiative
+
+Open Codex in the coordination workspace and invoke:
+
+```text
+Use $coordinate-org-sdd to initialize an initiative in initiatives/<initiative-id>/
+for this cross-team change: <outcome>.
+Participating repositories and owners: <references and accountable owners>.
+Draft the scope, shared contracts, dependencies, and bounded team handoffs.
+Identify missing policy decisions and approvals; do not dispatch work.
+```
+
+Supply real owner and policy inputs; do not copy the tutorial's synthetic approvals. Review the generated records using the [artifact contracts](coordinate-org-sdd/contracts/records.md) and [unapproved templates](coordinate-org-sdd/templates/README.md).
+
+### Deliver a participating team's contribution
+
+In the team's checkout, supply its approved handoff and authorized coordination workspace reference:
+
+```text
+Use $run-sdd-lifecycle for initiative <initiative-id>, repository <repository-id>,
+and handoff <handoff-id> in <coordination-workspace>.
+Verify the pinned organizational inputs and begin at the earliest incomplete local gate.
+```
+
+For persistent participation, use the documented `.sdd/org/context.json` record. The coordinator does not create remote tasks or modify team repositories merely because a handoff exists.
+
+### Resume organizational coordination
+
+```text
+Use $coordinate-org-sdd to inspect and reconcile initiatives/<initiative-id>/.
+Report stage-specific readiness, blocked dependencies, stale approvals,
+and missing integration or knowledge evidence at the supplied revisions.
+Prepare the next owner handoffs without publishing or releasing anything.
+```
+
+### Use the standalone lifecycle or an individual stage
+
 Open Codex in a project repository and invoke:
 
 ```text
@@ -220,11 +308,11 @@ Local verification was performed on macOS with Python 3.13.11/PyYAML 6.0.3 (full
 
 Skill entry points:
 
+- [Organizational coordination](coordinate-org-sdd/SKILL.md)
 - [Lifecycle](run-sdd-lifecycle/SKILL.md)
 - [Brownfield analysis](analyze-brownfield-context/SKILL.md)
 - [Specification planning](spec-to-task-plan/SKILL.md)
 - [Wave execution](execute-task-waves/SKILL.md)
-- [Organizational coordination](coordinate-org-sdd/SKILL.md)
 
 Skills package their own applicable resources:
 
