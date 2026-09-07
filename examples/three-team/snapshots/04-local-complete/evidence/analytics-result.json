@@ -1,0 +1,51 @@
+{
+  "attachments": [
+    {
+      "basis": "snapshot",
+      "digest": "sha256:bf312d3c9f0748f4e160af2bc08d0926fa038b2576f1399269086dc08b65e2db",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "sources/check-output.txt",
+      "repository_id": "coordination",
+      "revision": null
+    }
+  ],
+  "baseline_digests": [],
+  "check_id": "analytics-check",
+  "contract_refs": [
+    {
+      "digest": "sha256:4d3d4ee08d2f359f4469a23a442d081170cd5e37f412e1581bb77d9e9a703d57",
+      "initiative_id": "catalog-expansion",
+      "record_id": "catalog-api"
+    }
+  ],
+  "format_version": "1.0",
+  "id": "analytics-result",
+  "illustrative": true,
+  "initiative_id": "catalog-expansion",
+  "kind": "evidence",
+  "outcome": "passed",
+  "owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "procedure": "Synthetic owner-reviewed procedure; runner never executes this text.",
+  "provenance": {
+    "note": "ILLUSTRATIVE synthetic scenario; no real human approval or operational result.",
+    "observed_at": "2026-09-07T12:00:00Z",
+    "review_status": "human_confirmed",
+    "sources": []
+  },
+  "purpose": "verification",
+  "source_refs": [
+    {
+      "basis": "snapshot",
+      "digest": "sha256:a1ce869456959f63140e9d09fe87ad946b01e7c00a58929eb55c14092c24c061",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "implementation.txt",
+      "repository_id": "analytics",
+      "revision": null
+    }
+  ],
+  "status": "approved",
+  "timestamp": "2026-09-07T12:00:00Z"
+}

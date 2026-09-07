@@ -1,0 +1,57 @@
+{
+  "affected_participants": [
+    "catalog"
+  ],
+  "contract_refs": [
+    {
+      "digest": "sha256:b5d0405876bf898d76878c93867a7700b152018138f5aa3e157f0cb4b7180a03",
+      "initiative_id": "catalog-expansion",
+      "record_id": "catalog-api"
+    }
+  ],
+  "format_version": "1.0",
+  "freshness": "current",
+  "id": "catalog-knowledge",
+  "illustrative": true,
+  "initiative_id": "catalog-expansion",
+  "kind": "knowledge",
+  "okf_refs": [
+    {
+      "basis": "snapshot",
+      "digest": "sha256:d164b9ec6ef42ed50f96aff7fca63567584a92eeed2848b29e4f2e99fc07ee3d",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "boundary-refreshed.md",
+      "repository_id": "catalog",
+      "revision": null
+    }
+  ],
+  "owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "provenance": {
+    "note": "ILLUSTRATIVE synthetic scenario; no real human approval or operational result.",
+    "observed_at": "2026-09-07T12:00:00Z",
+    "review_status": "human_confirmed",
+    "sources": []
+  },
+  "publication": {
+    "disposition": "published",
+    "evidence_ids": [
+      "catalog-publication"
+    ],
+    "reason": "Synthetic reviewed publication evidence"
+  },
+  "source_refs": [
+    {
+      "basis": "snapshot",
+      "digest": "sha256:7ea079c2145f02dac7aecd9c25df1834a180a008a402935c049d4cbd767f83a7",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "implementation.txt",
+      "repository_id": "catalog",
+      "revision": null
+    }
+  ],
+  "stale_after": null,
+  "status": "approved"
+}

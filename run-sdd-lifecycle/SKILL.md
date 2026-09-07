@@ -22,13 +22,14 @@ Coordinate the installed SDD skills as one resumable lifecycle. Delegate each st
 
 ## Route the Repository
 
-1. Determine whether this is an existing implementation and whether the requested change is substantial enough to benefit from durable repository context.
-2. Use `$analyze-brownfield-context` before specification when any of these apply:
+1. Check for explicit organizational participation in `.sdd/org/context.json` or an equivalent session-supplied context. If absent, retain the standalone route with no coordinator/organizational setup dependency. If present, follow [organizational-routing.md](references/organizational-routing.md): load the installed `$coordinate-org-sdd` through the skill catalog, validate its pinned context and check the relevant prerequisites. An invalid, stale or inaccessible supplied context blocks affected gates; it never means standalone.
+2. Determine whether this is an existing implementation and whether the requested change is substantial enough to benefit from durable repository context.
+3. Use `$analyze-brownfield-context` before specification when any of these apply:
    - the change crosses multiple components or operational boundaries;
    - architecture, interfaces, data, deployment, or high-impact dependencies are not already clear;
    - `.sdd/knowledge/` exists but is stale, conflicted, invalid, or incomplete for the change.
-3. Skip brownfield analysis for a genuinely greenfield repository or a narrowly scoped change where direct inspection is sufficient. State that routing decision and its basis.
-4. If the knowledge skill requires review of an initial baseline or a material human-confirmed concept change, stop for that review before planning.
+4. Skip brownfield analysis for a genuinely greenfield repository or a narrowly scoped change where direct inspection is sufficient. State that routing decision and its basis.
+5. If the knowledge skill requires review of an initial baseline or a material human-confirmed concept change, stop for that review before planning.
 
 ## Advance the Lifecycle
 
@@ -40,6 +41,8 @@ Follow `$analyze-brownfield-context` when routed to it. Continue only after the 
 
 Follow `$spec-to-task-plan` from the first incomplete stage. Preserve its three distinct gates:
 
+For explicit participation, verify handoff planning prerequisites before the affected local requirements gate and retain exact organizational obligation/revision traceability. Shared-contract approval permits local planning; it does not approve any local artifact. Unblocked inspection or drafting may continue while a required organizational decision is pending, but do not advance the affected gate.
+
 1. create or revise `REQUIREMENTS.md`, validate it, then stop for requirements approval;
 2. after requirements approval, create or revise `DESIGN.md`, validate it, then stop for design approval;
 3. after design approval, create or revise `TASKS.md`, validate it, then stop for task-plan approval.
@@ -49,6 +52,8 @@ Do not implement product code during these stages.
 ### 3. Execute
 
 After explicit task-plan approval, follow `$execute-task-waves`.
+
+Where participation is configured, recheck current handoff execution prerequisites before each affected wave. Filter only the local execution skill's current-wave candidates; do not use an organization report to choose later local work. Keep its local validators and approvals mandatory even when the organizational check passes.
 
 - Default to its one-ready-wave scope.
 - If the user explicitly asks to execute all or continue through completion, advance sequentially across waves, still stopping at every approval, governance, permission, failure, or decision boundary.

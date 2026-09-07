@@ -1,0 +1,16 @@
+---
+type: Synthetic local context
+status: draft
+sources:
+  - resource: repo://source.txt
+generated:
+  by: analyze-brownfield-context/1.0
+  at: "2026-09-07T12:00:00Z"
+verified: []
+source_revision: "@REVISION@"
+source_fingerprint: "@FINGERPRINT@"
+source_worktree: "@WORKTREE@"
+curation_status: generated
+---
+
+Synthetic local source evidence, unreviewed and not organizational authority.

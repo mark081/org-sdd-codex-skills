@@ -1,0 +1,106 @@
+{
+  "acceptance_checks": [
+    "analytics-check"
+  ],
+  "completion_evidence_ids": [
+    "analytics-result"
+  ],
+  "dependencies": [
+    {
+      "consumer_stage": "execution",
+      "evidence_ids": [],
+      "id": "catalog-implemented",
+      "obligations": [
+        {
+          "digest": "sha256:4d3d4ee08d2f359f4469a23a442d081170cd5e37f412e1581bb77d9e9a703d57",
+          "initiative_id": "catalog-expansion",
+          "record_id": "catalog-api"
+        }
+      ],
+      "producer_id": "catalog-work",
+      "required_stage": "local_complete"
+    }
+  ],
+  "format_version": "1.0",
+  "id": "analytics-work",
+  "illustrative": true,
+  "initiative_id": "catalog-expansion",
+  "kind": "handoff",
+  "knowledge_ids": [
+    "analytics-knowledge"
+  ],
+  "local_artifacts": {
+    "design": {
+      "basis": "snapshot",
+      "digest": "sha256:27099459451b1e98ebcd5e28dfd85e34a403841ea405550bd341f184cbe91216",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "DESIGN.md",
+      "repository_id": "analytics",
+      "revision": null
+    },
+    "requirements": {
+      "basis": "snapshot",
+      "digest": "sha256:cb6054c03beee69245693ca41dff0cd881c9e2bf98b22a40bec1a25860bf6683",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "REQUIREMENTS.md",
+      "repository_id": "analytics",
+      "revision": null
+    },
+    "tasks": {
+      "basis": "snapshot",
+      "digest": "sha256:cec62e014e0769e7b73110e0701e7ee5568020c751af37590b40f8099de7a948",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "TASKS.md",
+      "repository_id": "analytics",
+      "revision": null
+    }
+  },
+  "obligations": [
+    {
+      "digest": "sha256:4d3d4ee08d2f359f4469a23a442d081170cd5e37f412e1581bb77d9e9a703d57",
+      "initiative_id": "catalog-expansion",
+      "record_id": "catalog-api"
+    }
+  ],
+  "owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "provenance": {
+    "note": "ILLUSTRATIVE synthetic scenario; no real human approval or operational result.",
+    "observed_at": "2026-09-07T12:00:00Z",
+    "review_status": "human_confirmed",
+    "sources": []
+  },
+  "receiving_owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "repository_id": "analytics",
+  "scope": "Synthetic analytics contribution",
+  "status": "approved",
+  "supplying_owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "trace": [
+    {
+      "design_elements": [
+        "DESIGN-1"
+      ],
+      "disposition": "implemented",
+      "obligation": {
+        "digest": "sha256:4d3d4ee08d2f359f4469a23a442d081170cd5e37f412e1581bb77d9e9a703d57",
+        "initiative_id": "catalog-expansion",
+        "record_id": "catalog-api"
+      },
+      "requirements": [
+        "ANALYTICS-ORG-001"
+      ],
+      "resolution_ids": [],
+      "tasks": [
+        "1"
+      ]
+    }
+  ]
+}

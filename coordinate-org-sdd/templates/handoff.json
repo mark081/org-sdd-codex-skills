@@ -1,0 +1,21 @@
+{
+  "format_version": "1.0",
+  "kind": "handoff",
+  "id": "<handoff-id>",
+  "initiative_id": "<initiative-id>",
+  "owner": {"unresolved": "<ownership-decision-id>"},
+  "status": "draft",
+  "provenance": {"sources": [], "observed_at": "<observation-time>", "review_status": "unreviewed", "note": "Draft handoff only; no work has been dispatched or authorized."},
+  "illustrative": false,
+  "supplying_owner": {"unresolved": "<ownership-decision-id>"},
+  "receiving_owner": {"unresolved": "<ownership-decision-id>"},
+  "repository_id": "<receiving-repository-id>",
+  "scope": "<bounded-handoff-scope>",
+  "obligations": [],
+  "local_artifacts": {"requirements": null, "design": null, "tasks": null},
+  "trace": [],
+  "dependencies": [],
+  "acceptance_checks": [],
+  "completion_evidence_ids": [],
+  "knowledge_ids": []
+}

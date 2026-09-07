@@ -115,3 +115,5 @@ Every claim with material planning impact cites a repository path and line or an
 - Never add secrets, personal/customer data, private reasoning, or copied proprietary content.
 
 Broken links are valid for permissive OKF consumers, but this producer applies a stricter local release policy: generated bundles must resolve internal links before handoff.
+
+For explicit organizational participation, [organizational-boundaries.md](organizational-boundaries.md) adds ownership, shared-obligation and dependency provenance to relevant concepts without changing this standalone producer schema. External pin freshness and outgoing publication are checked separately; an unchanged local manifest does not prove either.

@@ -13,6 +13,7 @@ Create or reconcile a reviewable knowledge baseline for an existing repository. 
 2. Inspect the worktree and current revision. Record the current commit and deterministic source fingerprint defined by the brownfield OKF contract.
 3. Require the `graphify` CLI. If it is unavailable, stop with the official installation command; do not install software without authorization.
 4. Read [references/brownfield-okf-contract.md](references/brownfield-okf-contract.md) before creating or materially revising the bundle.
+5. Where `.sdd/org/context.json` or equivalent session participation is supplied, read [references/organizational-boundaries.md](references/organizational-boundaries.md) and load the installed `coordinate-org-sdd` through the skill catalog. Missing participation retains standalone behavior; invalid or inaccessible supplied context remains an explicit blocker for affected organizational claims.
 
 ## Build or Refresh Evidence
 
@@ -50,6 +51,8 @@ For each generated or revised concept:
 
 The authority order is: approved requirements and policy; human-confirmed decisions; verified source/configuration facts; curated OKF summaries; Graphify inferences.
 
+For participating repositories, curate relevant ownership, shared-contract pins and external stage dependencies into the existing local concepts using the organizational boundary reference. Owner-approved contracts express obligations; verified local source expresses implementation. Show disagreement between them explicitly, and retain inaccessible private evidence as unresolved.
+
 ## Validate and Handoff
 
 1. Run `python3 scripts/validate_brownfield_bundle.py --project <project-root>` from this skill directory. Use `uv run --with pyyaml python` when PyYAML is unavailable.
@@ -68,5 +71,6 @@ When invoked after implementation:
 5. Revise OKF only for durable knowledge changes; routine internal refactors may require only a graph refresh and verified unchanged dispositions.
 6. Only after reconciliation is complete, run `--write-manifest` to replace the baseline, then update `bundle-state.md` and reconciled concept source metadata with the new revision, fingerprint, and worktree state.
 7. Run ordinary validation and return the pre-update diff, dispositions, new manifest fingerprint, and validation result as evidence suitable for `TASKS.md` completion records.
+8. For organizationally relevant changes, prepare the reviewed outgoing boundary update described in [references/organizational-boundaries.md](references/organizational-boundaries.md). Check external pins even when local source paths are unchanged. Report local reconciliation, required human review and publication separately before claiming the affected handoff is current.
 
 Never claim that generated documentation is approved, never fabricate organizational policy, and never store secrets, credentials, customer data, private reasoning, or prohibited sensitive content in Graphify or OKF outputs.

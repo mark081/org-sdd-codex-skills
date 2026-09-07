@@ -1,0 +1,42 @@
+{
+  "attachments": [],
+  "baseline_digests": [],
+  "check_id": "checkout-check",
+  "contract_refs": [
+    {
+      "digest": "sha256:4c4802aeaf9047143b6392d1f50203a8ed7c653bc8da7e7c1da929dc9a4cade1",
+      "initiative_id": "catalog-expansion",
+      "record_id": "catalog-api"
+    }
+  ],
+  "format_version": "1.0",
+  "id": "checkout-result",
+  "illustrative": true,
+  "initiative_id": "catalog-expansion",
+  "kind": "evidence",
+  "outcome": "not_run",
+  "owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "procedure": "Synthetic owner-reviewed procedure; runner never executes this text.",
+  "provenance": {
+    "note": "ILLUSTRATIVE synthetic scenario; no real human approval or operational result.",
+    "observed_at": "2026-09-07T12:00:00Z",
+    "review_status": "human_confirmed",
+    "sources": []
+  },
+  "purpose": "verification",
+  "source_refs": [
+    {
+      "basis": "snapshot",
+      "digest": "sha256:cfd4cb1b8f5e403b239cf31ee8b17da291c28e3a37b5e6d60438a02e436bb4f6",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "implementation.txt",
+      "repository_id": "checkout",
+      "revision": null
+    }
+  ],
+  "status": "approved",
+  "timestamp": "2026-09-07T12:00:00Z"
+}

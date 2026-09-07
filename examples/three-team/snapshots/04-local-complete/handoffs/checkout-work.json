@@ -1,0 +1,106 @@
+{
+  "acceptance_checks": [
+    "checkout-check"
+  ],
+  "completion_evidence_ids": [
+    "checkout-result"
+  ],
+  "dependencies": [
+    {
+      "consumer_stage": "execution",
+      "evidence_ids": [],
+      "id": "catalog-implemented",
+      "obligations": [
+        {
+          "digest": "sha256:4d3d4ee08d2f359f4469a23a442d081170cd5e37f412e1581bb77d9e9a703d57",
+          "initiative_id": "catalog-expansion",
+          "record_id": "catalog-api"
+        }
+      ],
+      "producer_id": "catalog-work",
+      "required_stage": "local_complete"
+    }
+  ],
+  "format_version": "1.0",
+  "id": "checkout-work",
+  "illustrative": true,
+  "initiative_id": "catalog-expansion",
+  "kind": "handoff",
+  "knowledge_ids": [
+    "checkout-knowledge"
+  ],
+  "local_artifacts": {
+    "design": {
+      "basis": "snapshot",
+      "digest": "sha256:ce2318697b364e376c185b09e866b27db678199f16695091872ff57ffe064c37",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "DESIGN.md",
+      "repository_id": "checkout",
+      "revision": null
+    },
+    "requirements": {
+      "basis": "snapshot",
+      "digest": "sha256:b0173a50008c8765a02133a9516205ff5761f9e2d695f0c312f1ad1867016c2d",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "REQUIREMENTS.md",
+      "repository_id": "checkout",
+      "revision": null
+    },
+    "tasks": {
+      "basis": "snapshot",
+      "digest": "sha256:cf56c796e6a9a61302b5cd45a442bfe3ed0c03bb9becfd768bed8531c367183e",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "TASKS.md",
+      "repository_id": "checkout",
+      "revision": null
+    }
+  },
+  "obligations": [
+    {
+      "digest": "sha256:4d3d4ee08d2f359f4469a23a442d081170cd5e37f412e1581bb77d9e9a703d57",
+      "initiative_id": "catalog-expansion",
+      "record_id": "catalog-api"
+    }
+  ],
+  "owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "provenance": {
+    "note": "ILLUSTRATIVE synthetic scenario; no real human approval or operational result.",
+    "observed_at": "2026-09-07T12:00:00Z",
+    "review_status": "human_confirmed",
+    "sources": []
+  },
+  "receiving_owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "repository_id": "checkout",
+  "scope": "Synthetic checkout contribution",
+  "status": "approved",
+  "supplying_owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "trace": [
+    {
+      "design_elements": [
+        "DESIGN-1"
+      ],
+      "disposition": "implemented",
+      "obligation": {
+        "digest": "sha256:4d3d4ee08d2f359f4469a23a442d081170cd5e37f412e1581bb77d9e9a703d57",
+        "initiative_id": "catalog-expansion",
+        "record_id": "catalog-api"
+      },
+      "requirements": [
+        "CHECKOUT-ORG-001"
+      ],
+      "resolution_ids": [],
+      "tasks": [
+        "1"
+      ]
+    }
+  ]
+}

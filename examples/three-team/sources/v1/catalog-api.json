@@ -1,0 +1,21 @@
+{
+  "boundary": "One reviewed boundary covers the Catalog API and its derived item event; primary category is API.",
+  "change": "initial",
+  "derived_event": {
+    "consumer": "analytics",
+    "name": "catalog.item.changed",
+    "payload_fields": [
+      "item_id",
+      "price"
+    ],
+    "producer": "catalog",
+    "semantics": "Synthetic item-update notification; Analytics rejects missing required fields and groups accepted values for reporting.",
+    "version": "v1"
+  },
+  "fields": [
+    "item_id",
+    "price"
+  ],
+  "illustrative": true,
+  "operation": "GET /catalog/items"
+}

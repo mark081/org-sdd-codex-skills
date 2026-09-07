@@ -1,0 +1,3 @@
+# Only the legacy brownfield validator requires a third-party test dependency.
+# Coordination, specification and wave tooling use the Python standard library.
+PyYAML==6.0.3

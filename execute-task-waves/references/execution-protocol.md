@@ -59,3 +59,9 @@ Automated checkpoints require all listed commands and artifacts. Human governanc
 ## Recovery
 
 On interruption, rerun `next_wave.py`, inspect the worktree and task evidence, and verify partially completed work. Never assume an unchecked task has no changes or a checked task is correct merely because of its checkbox.
+
+## Explicit organizational participation
+
+For a configured or session-supplied organizational handoff, follow [organizational-execution.md](organizational-execution.md). The local resolver still supplies the current wave; organizational checks only filter those candidates. The primary integration owner alone changes local task status and prepares authorized completion evidence. Source/contract evidence must bind the tested baseline; no local result implies integration, publication or release approval.
+
+Preserve immutable approved plan baselines separately from mutable local progress bookkeeping. A raw-byte snapshot of the live TASKS.md changes when checkboxes/evidence change; do not silently repin or fabricate renewed approval. Verify the current task definitions and material-change gates in addition to the historical approved baseline. Return material scope changes to the existing local approval sequence.

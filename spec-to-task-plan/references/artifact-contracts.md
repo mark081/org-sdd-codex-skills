@@ -74,3 +74,7 @@ Leaf task format:
 ```
 
 Tasks in one wave must be independent. If they may edit the same files or schema, serialize them or explicitly assign integration ownership. Never place dependent waves in parallel.
+
+## Explicit organizational participation
+
+Add an organizational traceability section to each local artifact only when participation is explicit. Follow [organizational-planning.md](organizational-planning.md) for exact obligation pins, stage-specific coverage, non-applicability evidence, and handoff reconciliation. These sections supplement rather than replace local requirement IDs, design properties, task graphs, or approvals.

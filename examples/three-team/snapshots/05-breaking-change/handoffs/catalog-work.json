@@ -1,0 +1,91 @@
+{
+  "acceptance_checks": [
+    "catalog-check"
+  ],
+  "completion_evidence_ids": [
+    "catalog-result"
+  ],
+  "dependencies": [],
+  "format_version": "1.0",
+  "id": "catalog-work",
+  "illustrative": true,
+  "initiative_id": "catalog-expansion",
+  "kind": "handoff",
+  "knowledge_ids": [
+    "catalog-knowledge"
+  ],
+  "local_artifacts": {
+    "design": {
+      "basis": "snapshot",
+      "digest": "sha256:5d7189ab54e1a1fa5d176260c3b0e34211707fecae49b03a84266d884505dd19",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "DESIGN.md",
+      "repository_id": "catalog",
+      "revision": null
+    },
+    "requirements": {
+      "basis": "snapshot",
+      "digest": "sha256:957835c908d1eca8476c57e86b23845f1719b58cf0f01aedb6bec14d3c0f7dbe",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "REQUIREMENTS.md",
+      "repository_id": "catalog",
+      "revision": null
+    },
+    "tasks": {
+      "basis": "snapshot",
+      "digest": "sha256:4481f30deb36135ceb92c2cd64b9938c8c02b090ccbbe3b6b115b44e31945691",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "TASKS.md",
+      "repository_id": "catalog",
+      "revision": null
+    }
+  },
+  "obligations": [
+    {
+      "digest": "sha256:4d3d4ee08d2f359f4469a23a442d081170cd5e37f412e1581bb77d9e9a703d57",
+      "initiative_id": "catalog-expansion",
+      "record_id": "catalog-api"
+    }
+  ],
+  "owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "provenance": {
+    "note": "ILLUSTRATIVE synthetic scenario; no real human approval or operational result.",
+    "observed_at": "2026-09-07T12:00:00Z",
+    "review_status": "human_confirmed",
+    "sources": []
+  },
+  "receiving_owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "repository_id": "catalog",
+  "scope": "Synthetic catalog contribution",
+  "status": "approved",
+  "supplying_owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "trace": [
+    {
+      "design_elements": [
+        "DESIGN-1"
+      ],
+      "disposition": "implemented",
+      "obligation": {
+        "digest": "sha256:4d3d4ee08d2f359f4469a23a442d081170cd5e37f412e1581bb77d9e9a703d57",
+        "initiative_id": "catalog-expansion",
+        "record_id": "catalog-api"
+      },
+      "requirements": [
+        "CATALOG-ORG-001"
+      ],
+      "resolution_ids": [],
+      "tasks": [
+        "1"
+      ]
+    }
+  ]
+}

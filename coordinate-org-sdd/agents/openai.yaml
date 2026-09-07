@@ -1,0 +1,4 @@
+interface:
+  display_name: "Coordinate Organizational SDD"
+  short_description: "Coordinate cross-team contracts and SDD handoffs"
+  default_prompt: "Use $coordinate-org-sdd to inspect our cross-team initiative and identify the next owner-approved handoff."

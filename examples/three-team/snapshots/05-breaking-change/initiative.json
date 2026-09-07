@@ -1,0 +1,302 @@
+{
+  "checks": [
+    {
+      "expected": "pass",
+      "id": "catalog-check",
+      "owner": {
+        "actor": "synthetic-owner",
+        "role": "example-reviewer"
+      },
+      "procedure": "Synthetic catalog boundary verification",
+      "required_contracts": [
+        {
+          "digest": "sha256:4c4802aeaf9047143b6392d1f50203a8ed7c653bc8da7e7c1da929dc9a4cade1",
+          "initiative_id": "catalog-expansion",
+          "record_id": "catalog-api"
+        }
+      ],
+      "required_sources": [
+        {
+          "basis": "snapshot",
+          "digest": "sha256:7ea079c2145f02dac7aecd9c25df1834a180a008a402935c049d4cbd767f83a7",
+          "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+          "path": "implementation.txt",
+          "repository_id": "catalog",
+          "revision": null
+        }
+      ],
+      "stage": "local_complete"
+    },
+    {
+      "expected": "pass",
+      "id": "checkout-check",
+      "owner": {
+        "actor": "synthetic-owner",
+        "role": "example-reviewer"
+      },
+      "procedure": "Synthetic checkout boundary verification",
+      "required_contracts": [
+        {
+          "digest": "sha256:4c4802aeaf9047143b6392d1f50203a8ed7c653bc8da7e7c1da929dc9a4cade1",
+          "initiative_id": "catalog-expansion",
+          "record_id": "catalog-api"
+        }
+      ],
+      "required_sources": [
+        {
+          "basis": "snapshot",
+          "digest": "sha256:cfd4cb1b8f5e403b239cf31ee8b17da291c28e3a37b5e6d60438a02e436bb4f6",
+          "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+          "path": "implementation.txt",
+          "repository_id": "checkout",
+          "revision": null
+        }
+      ],
+      "stage": "local_complete"
+    },
+    {
+      "expected": "pass",
+      "id": "analytics-check",
+      "owner": {
+        "actor": "synthetic-owner",
+        "role": "example-reviewer"
+      },
+      "procedure": "Synthetic analytics boundary verification",
+      "required_contracts": [
+        {
+          "digest": "sha256:4c4802aeaf9047143b6392d1f50203a8ed7c653bc8da7e7c1da929dc9a4cade1",
+          "initiative_id": "catalog-expansion",
+          "record_id": "catalog-api"
+        }
+      ],
+      "required_sources": [
+        {
+          "basis": "snapshot",
+          "digest": "sha256:5c78b16c353ab4320dd367586680a346db154bd0fcc88dca6f3298747cb2eee0",
+          "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+          "path": "implementation.txt",
+          "repository_id": "analytics",
+          "revision": null
+        }
+      ],
+      "stage": "local_complete"
+    },
+    {
+      "expected": "pass",
+      "id": "end-to-end",
+      "owner": {
+        "actor": "synthetic-owner",
+        "role": "example-reviewer"
+      },
+      "procedure": "Synthetic Catalog + Checkout + Analytics integration",
+      "required_contracts": [
+        {
+          "digest": "sha256:4c4802aeaf9047143b6392d1f50203a8ed7c653bc8da7e7c1da929dc9a4cade1",
+          "initiative_id": "catalog-expansion",
+          "record_id": "catalog-api"
+        }
+      ],
+      "required_sources": [
+        {
+          "basis": "snapshot",
+          "digest": "sha256:7ea079c2145f02dac7aecd9c25df1834a180a008a402935c049d4cbd767f83a7",
+          "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+          "path": "implementation.txt",
+          "repository_id": "catalog",
+          "revision": null
+        },
+        {
+          "basis": "snapshot",
+          "digest": "sha256:cfd4cb1b8f5e403b239cf31ee8b17da291c28e3a37b5e6d60438a02e436bb4f6",
+          "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+          "path": "implementation.txt",
+          "repository_id": "checkout",
+          "revision": null
+        },
+        {
+          "basis": "snapshot",
+          "digest": "sha256:5c78b16c353ab4320dd367586680a346db154bd0fcc88dca6f3298747cb2eee0",
+          "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+          "path": "implementation.txt",
+          "repository_id": "analytics",
+          "revision": null
+        }
+      ],
+      "stage": "integration"
+    }
+  ],
+  "decisions": [
+    {
+      "affected_gates": [
+        "scope"
+      ],
+      "affected_ids": [
+        "catalog-expansion"
+      ],
+      "evidence": [
+        {
+          "basis": "snapshot",
+          "digest": "sha256:aa78cf1895c141e5b2907ce3dc1b4f7ccb1265f41c17bc1f07eda2229ed6a40e",
+          "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+          "path": "sources/scope-decision.txt",
+          "repository_id": "coordination",
+          "revision": null
+        }
+      ],
+      "id": "example-scope",
+      "owner_role": "example-reviewer",
+      "question": "Synthetic scope, ownership and disclosure?",
+      "resolution": "Illustrative scenario only; no adopter policy",
+      "status": "resolved"
+    }
+  ],
+  "format_version": "1.0",
+  "id": "catalog-expansion",
+  "illustrative": true,
+  "initiative_id": "catalog-expansion",
+  "integration_checks": [
+    "end-to-end"
+  ],
+  "integration_owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "kind": "initiative",
+  "owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "participants": [
+    {
+      "locator": {
+        "path": ".",
+        "type": "git",
+        "url": "https://example.invalid/catalog"
+      },
+      "owner": {
+        "actor": "synthetic-owner",
+        "role": "example-reviewer"
+      },
+      "repository_id": "catalog"
+    },
+    {
+      "locator": {
+        "path": ".",
+        "type": "git",
+        "url": "https://example.invalid/checkout"
+      },
+      "owner": {
+        "actor": "synthetic-owner",
+        "role": "example-reviewer"
+      },
+      "repository_id": "checkout"
+    },
+    {
+      "locator": {
+        "path": ".",
+        "type": "git",
+        "url": "https://example.invalid/analytics"
+      },
+      "owner": {
+        "actor": "synthetic-owner",
+        "role": "example-reviewer"
+      },
+      "repository_id": "analytics"
+    }
+  ],
+  "policy": {
+    "disclosure": {
+      "decision_id": "example-scope",
+      "status": "resolved"
+    },
+    "gates": [
+      {
+        "gate": "scope",
+        "required_roles": [
+          "example-reviewer"
+        ]
+      },
+      {
+        "gate": "contract",
+        "required_roles": [
+          "example-reviewer"
+        ]
+      },
+      {
+        "gate": "requirements",
+        "required_roles": [
+          "example-reviewer"
+        ]
+      },
+      {
+        "gate": "design",
+        "required_roles": [
+          "example-reviewer"
+        ]
+      },
+      {
+        "gate": "tasks",
+        "required_roles": [
+          "example-reviewer"
+        ]
+      },
+      {
+        "gate": "knowledge",
+        "required_roles": [
+          "example-reviewer"
+        ]
+      },
+      {
+        "gate": "integration",
+        "required_roles": [
+          "example-reviewer"
+        ]
+      },
+      {
+        "gate": "release",
+        "required_roles": [
+          "example-reviewer"
+        ]
+      },
+      {
+        "gate": "resolution",
+        "required_roles": [
+          "example-reviewer"
+        ]
+      }
+    ],
+    "role_assignments": [
+      {
+        "actors": [
+          "synthetic-owner"
+        ],
+        "role": "example-reviewer"
+      }
+    ]
+  },
+  "provenance": {
+    "note": "ILLUSTRATIVE synthetic scenario; no real human approval or operational result.",
+    "observed_at": "2026-09-07T12:00:00Z",
+    "review_status": "human_confirmed",
+    "sources": []
+  },
+  "purpose": "Synthetic three-team catalog currency rollout",
+  "required_contracts": [
+    "catalog-api"
+  ],
+  "required_handoffs": [
+    "catalog-work",
+    "checkout-work",
+    "analytics-work"
+  ],
+  "rollback_owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "rollout_owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "scope": "Catalog provides API and derived item events; Checkout purchases items; Analytics consumes catalog.item.changed events.",
+  "status": "approved"
+}

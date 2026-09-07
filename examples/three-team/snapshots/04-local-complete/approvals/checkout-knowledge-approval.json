@@ -1,0 +1,30 @@
+{
+  "actor": "synthetic-owner",
+  "decision": "approved",
+  "format_version": "1.0",
+  "gate": "knowledge",
+  "id": "checkout-knowledge-approval",
+  "illustrative": true,
+  "initiative_id": "catalog-expansion",
+  "kind": "approval",
+  "owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "policy_digest": "sha256:1942a9f779eaeba05ffbcd0d9c4818db86e73ecb91bfadc2e25eb2b5e135c246",
+  "provenance": {
+    "note": "ILLUSTRATIVE synthetic scenario; no real human approval or operational result.",
+    "observed_at": "2026-09-07T12:00:00Z",
+    "review_status": "human_confirmed",
+    "sources": []
+  },
+  "role": "example-reviewer",
+  "status": "approved",
+  "target": {
+    "digest": "sha256:178e90b5b2cf43b70bffbed7945d5b4ee68f05e93133af937bfff05c03fa05c0",
+    "initiative_id": "catalog-expansion",
+    "record_id": "checkout-knowledge",
+    "type": "record"
+  },
+  "timestamp": "2026-09-07T12:00:00Z"
+}

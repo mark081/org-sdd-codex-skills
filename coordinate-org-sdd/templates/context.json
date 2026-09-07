@@ -1,0 +1,8 @@
+{
+  "format_version": "1.0",
+  "initiative_id": "<initiative-id>",
+  "repository_id": "<receiving-repository-id>",
+  "coordination": {"type": "git", "url": "<credential-free-coordination-git-url>", "path": "initiatives/<initiative-id>"},
+  "initiative_digest": "<computed-current-initiative-digest>",
+  "handoff_ids": ["<handoff-id>"]
+}

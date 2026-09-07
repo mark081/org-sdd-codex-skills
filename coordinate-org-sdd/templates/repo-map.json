@@ -1,0 +1,6 @@
+{
+  "format_version": "1.0",
+  "repositories": {
+    "<receiving-repository-id>": {"root": "<explicit-absolute-local-root>", "basis": "<git-or-snapshot>"}
+  }
+}

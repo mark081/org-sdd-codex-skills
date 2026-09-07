@@ -1,0 +1,113 @@
+{
+  "format_version": "1.0",
+  "illustrative": true,
+  "initiative_id": "catalog-expansion",
+  "snapshots": [
+    {
+      "command": "python examples/three-team/run_example.py --snapshot 01-draft --coordinator-skill coordinate-org-sdd --allow-illustrative --format json",
+      "expected_codes": [
+        "POLICY_UNRESOLVED"
+      ],
+      "handoff": null,
+      "id": "01-draft",
+      "illustrative_readiness_exit": 2,
+      "production_readiness_exit": 2,
+      "source_version": "v1",
+      "stage": "planning",
+      "structure_exit": 0
+    },
+    {
+      "command": "python examples/three-team/run_example.py --snapshot 02-approved-contract --coordinator-skill coordinate-org-sdd --allow-illustrative --format json",
+      "expected_codes": [],
+      "handoff": null,
+      "id": "02-approved-contract",
+      "illustrative_readiness_exit": 0,
+      "production_readiness_exit": 2,
+      "source_version": "v1",
+      "stage": "planning",
+      "structure_exit": 0
+    },
+    {
+      "command": "python examples/three-team/run_example.py --snapshot 03-blocked-execution --coordinator-skill coordinate-org-sdd --allow-illustrative --format json",
+      "expected_codes": [
+        "DEPENDENCY_UNMET"
+      ],
+      "handoff": "checkout-work",
+      "id": "03-blocked-execution",
+      "illustrative_readiness_exit": 2,
+      "production_readiness_exit": 2,
+      "source_version": "v1",
+      "stage": "execution",
+      "structure_exit": 0
+    },
+    {
+      "command": "python examples/three-team/run_example.py --snapshot 04-local-complete --coordinator-skill coordinate-org-sdd --allow-illustrative --format json",
+      "expected_codes": [],
+      "handoff": null,
+      "id": "04-local-complete",
+      "illustrative_readiness_exit": 0,
+      "production_readiness_exit": 2,
+      "source_version": "v1",
+      "stage": "local_complete",
+      "structure_exit": 0
+    },
+    {
+      "command": "python examples/three-team/run_example.py --snapshot 05-breaking-change --coordinator-skill coordinate-org-sdd --allow-illustrative --format json",
+      "expected_codes": [
+        "COMPATIBILITY_UNRESOLVED",
+        "DIGEST_MISMATCH"
+      ],
+      "handoff": "checkout-work",
+      "id": "05-breaking-change",
+      "illustrative_readiness_exit": 2,
+      "production_readiness_exit": 2,
+      "source_version": "v2",
+      "stage": "planning",
+      "structure_exit": 0
+    },
+    {
+      "command": "python examples/three-team/run_example.py --snapshot 06-migration-resolution --coordinator-skill coordinate-org-sdd --allow-illustrative --format json",
+      "expected_codes": [],
+      "handoff": null,
+      "id": "06-migration-resolution",
+      "illustrative_readiness_exit": 0,
+      "production_readiness_exit": 2,
+      "source_version": "v2",
+      "stage": "execution",
+      "structure_exit": 0
+    },
+    {
+      "command": "python examples/three-team/run_example.py --snapshot 07-integration --coordinator-skill coordinate-org-sdd --allow-illustrative --format json",
+      "expected_codes": [],
+      "handoff": null,
+      "id": "07-integration",
+      "illustrative_readiness_exit": 0,
+      "production_readiness_exit": 2,
+      "source_version": "v2",
+      "stage": "integration",
+      "structure_exit": 0
+    },
+    {
+      "command": "python examples/three-team/run_example.py --snapshot 08-release --coordinator-skill coordinate-org-sdd --allow-illustrative --format json",
+      "expected_codes": [],
+      "handoff": null,
+      "id": "08-release",
+      "illustrative_readiness_exit": 0,
+      "production_readiness_exit": 2,
+      "source_version": "v2",
+      "stage": "release",
+      "structure_exit": 0
+    },
+    {
+      "command": "python examples/three-team/run_example.py --snapshot 09-refreshed-knowledge --coordinator-skill coordinate-org-sdd --allow-illustrative --format json",
+      "expected_codes": [],
+      "handoff": null,
+      "id": "09-refreshed-knowledge",
+      "illustrative_readiness_exit": 0,
+      "production_readiness_exit": 2,
+      "source_version": "v2",
+      "stage": "release",
+      "structure_exit": 0
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "attachments": [
+    {
+      "basis": "snapshot",
+      "digest": "sha256:bf312d3c9f0748f4e160af2bc08d0926fa038b2576f1399269086dc08b65e2db",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "sources/check-output.txt",
+      "repository_id": "coordination",
+      "revision": null
+    }
+  ],
+  "baseline_digests": [],
+  "check_id": null,
+  "contract_refs": [
+    {
+      "digest": "sha256:b5d0405876bf898d76878c93867a7700b152018138f5aa3e157f0cb4b7180a03",
+      "initiative_id": "catalog-expansion",
+      "record_id": "catalog-api"
+    }
+  ],
+  "format_version": "1.0",
+  "id": "analytics-publication",
+  "illustrative": true,
+  "initiative_id": "catalog-expansion",
+  "kind": "evidence",
+  "outcome": "passed",
+  "owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "procedure": "Synthetic owner-reviewed procedure; runner never executes this text.",
+  "provenance": {
+    "note": "ILLUSTRATIVE synthetic scenario; no real human approval or operational result.",
+    "observed_at": "2026-09-07T12:00:00Z",
+    "review_status": "human_confirmed",
+    "sources": []
+  },
+  "purpose": "publication",
+  "source_refs": [
+    {
+      "basis": "snapshot",
+      "digest": "sha256:5c78b16c353ab4320dd367586680a346db154bd0fcc88dca6f3298747cb2eee0",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "implementation.txt",
+      "repository_id": "analytics",
+      "revision": null
+    },
+    {
+      "basis": "snapshot",
+      "digest": "sha256:e28a3bf68fd18e5c220908140b43f50e837250a41e5a9b9c109521fe960401bf",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "boundary-refreshed.md",
+      "repository_id": "analytics",
+      "revision": null
+    }
+  ],
+  "status": "approved",
+  "timestamp": "2026-09-07T12:00:00Z"
+}

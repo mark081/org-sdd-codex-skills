@@ -1,0 +1,17 @@
+{
+  "format_version": "1.0",
+  "kind": "approval",
+  "id": "<new-approval-record-id>",
+  "initiative_id": "<initiative-id>",
+  "owner": {"unresolved": "<ownership-decision-id>"},
+  "status": "proposed",
+  "provenance": {"sources": [], "observed_at": "<capture-time>", "review_status": "unreviewed", "note": "UNINSTANTIATED: create a record only for an actual supplied human decision; this file grants no approval."},
+  "illustrative": false,
+  "actor": "<actual-approving-actor-id>",
+  "role": "<actual-approving-role-id>",
+  "gate": "<actual-gate>",
+  "decision": "<actual-approved-rejected-or-revoked-decision>",
+  "timestamp": "<actual-decision-time>",
+  "target": {"initiative_id": "<initiative-id>", "record_id": "<target-record-id>", "type": "record", "digest": "<computed-current-target-digest>"},
+  "policy_digest": "<computed-current-policy-digest>"
+}

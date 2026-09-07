@@ -33,6 +33,10 @@ Absence of an OKF bundle is not an error. Inspect the repository normally, and r
 
 Read [references/artifact-contracts.md](references/artifact-contracts.md) before creating or materially revising any artifact. Read [references/approval-protocol.md](references/approval-protocol.md) when advancing stages.
 
+## Organizational handoff (opt-in)
+
+When `.sdd/org/context.json` exists or the user supplies an explicit organizational handoff, read [references/organizational-planning.md](references/organizational-planning.md) before drafting and before each affected approval gate. Preserve obligation/revision traceability in all three local artifacts. Invalid, inaccessible, stale, or conflicting supplied context blocks the affected gate; it is not standalone mode. Without either input, retain the workflow below with no organizational setup or dependency.
+
 ## Stage 1: Requirements
 
 1. Translate the prompt into problem, scope, actors, workflow, goals, non-goals, assumptions, decisions, and open questions.

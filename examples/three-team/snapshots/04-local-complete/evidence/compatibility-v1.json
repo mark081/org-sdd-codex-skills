@@ -1,0 +1,45 @@
+{
+  "attachments": [
+    {
+      "basis": "snapshot",
+      "digest": "sha256:bf312d3c9f0748f4e160af2bc08d0926fa038b2576f1399269086dc08b65e2db",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "sources/check-output.txt",
+      "repository_id": "coordination",
+      "revision": null
+    }
+  ],
+  "baseline_digests": [],
+  "check_id": null,
+  "contract_refs": [],
+  "format_version": "1.0",
+  "id": "compatibility-v1",
+  "illustrative": true,
+  "initiative_id": "catalog-expansion",
+  "kind": "evidence",
+  "outcome": "passed",
+  "owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "procedure": "Synthetic owner-reviewed procedure; runner never executes this text.",
+  "provenance": {
+    "note": "ILLUSTRATIVE synthetic scenario; no real human approval or operational result.",
+    "observed_at": "2026-09-07T12:00:00Z",
+    "review_status": "human_confirmed",
+    "sources": []
+  },
+  "purpose": "compatibility",
+  "source_refs": [
+    {
+      "basis": "snapshot",
+      "digest": "sha256:634078fd2682a49c2c9f6ad2303156c0daa4e8b0ced99deaae24298a300903e8",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "sources/v1/catalog-api.json",
+      "repository_id": "coordination",
+      "revision": null
+    }
+  ],
+  "status": "approved",
+  "timestamp": "2026-09-07T12:00:00Z"
+}

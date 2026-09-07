@@ -1,0 +1,23 @@
+{
+  "boundary": "One reviewed boundary covers the Catalog API and its derived item event; primary category is API.",
+  "change": "required currency field; consumers must migrate",
+  "derived_event": {
+    "consumer": "analytics",
+    "name": "catalog.item.changed",
+    "payload_fields": [
+      "item_id",
+      "price",
+      "currency"
+    ],
+    "producer": "catalog",
+    "semantics": "Synthetic item-update notification; Analytics rejects missing required fields and groups accepted values for reporting.",
+    "version": "v2"
+  },
+  "fields": [
+    "item_id",
+    "price",
+    "currency"
+  ],
+  "illustrative": true,
+  "operation": "GET /catalog/items"
+}

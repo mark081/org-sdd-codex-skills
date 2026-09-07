@@ -1,0 +1,19 @@
+{
+  "format_version": "1.0",
+  "kind": "evidence",
+  "id": "<evidence-id>",
+  "initiative_id": "<initiative-id>",
+  "owner": {"unresolved": "<ownership-decision-id>"},
+  "status": "draft",
+  "provenance": {"sources": [], "observed_at": "<observation-time>", "review_status": "unreviewed", "note": "Unrun check proposal, not a result or a command-execution request."},
+  "illustrative": false,
+  "check_id": "<registered-check-id>",
+  "purpose": "verification",
+  "outcome": "not_run",
+  "procedure": "<owner-reviewed-command-or-procedure-inert-text>",
+  "timestamp": "<observation-time>",
+  "source_refs": [],
+  "contract_refs": [],
+  "baseline_digests": [],
+  "attachments": []
+}

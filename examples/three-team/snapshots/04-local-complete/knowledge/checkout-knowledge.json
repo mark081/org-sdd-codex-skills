@@ -1,0 +1,55 @@
+{
+  "affected_participants": [
+    "checkout"
+  ],
+  "contract_refs": [
+    {
+      "digest": "sha256:4d3d4ee08d2f359f4469a23a442d081170cd5e37f412e1581bb77d9e9a703d57",
+      "initiative_id": "catalog-expansion",
+      "record_id": "catalog-api"
+    }
+  ],
+  "format_version": "1.0",
+  "freshness": "current",
+  "id": "checkout-knowledge",
+  "illustrative": true,
+  "initiative_id": "catalog-expansion",
+  "kind": "knowledge",
+  "okf_refs": [
+    {
+      "basis": "snapshot",
+      "digest": "sha256:2a04c91b6be3c3c253968e8d19cdf4fa5df184385ac3dab079a2d0024e48b49e",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "boundary.md",
+      "repository_id": "checkout",
+      "revision": null
+    }
+  ],
+  "owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "provenance": {
+    "note": "ILLUSTRATIVE synthetic scenario; no real human approval or operational result.",
+    "observed_at": "2026-09-07T12:00:00Z",
+    "review_status": "human_confirmed",
+    "sources": []
+  },
+  "publication": {
+    "disposition": "pending",
+    "evidence_ids": [],
+    "reason": "Synthetic outgoing update awaits publication"
+  },
+  "source_refs": [
+    {
+      "basis": "snapshot",
+      "digest": "sha256:956add5e063e80b05ae204bc8838409db1a9dd2252012e003d36bf936b829c38",
+      "note": "Synthetic preserved snapshot; not a live repository or remote-current claim.",
+      "path": "implementation.txt",
+      "repository_id": "checkout",
+      "revision": null
+    }
+  ],
+  "stale_after": null,
+  "status": "approved"
+}

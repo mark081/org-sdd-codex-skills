@@ -1,0 +1,5 @@
+# SourceRefs hash exact bytes. Preserve generated attachment/control bytes on
+# Windows autocrlf checkouts as well as Linux/macOS.
+sources/** -text
+snapshots/** -text
+manifest.json -text

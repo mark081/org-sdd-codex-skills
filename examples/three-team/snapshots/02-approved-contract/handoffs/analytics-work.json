@@ -1,0 +1,62 @@
+{
+  "acceptance_checks": [
+    "analytics-check"
+  ],
+  "completion_evidence_ids": [],
+  "dependencies": [
+    {
+      "consumer_stage": "execution",
+      "evidence_ids": [],
+      "id": "catalog-implemented",
+      "obligations": [
+        {
+          "digest": "sha256:4d3d4ee08d2f359f4469a23a442d081170cd5e37f412e1581bb77d9e9a703d57",
+          "initiative_id": "catalog-expansion",
+          "record_id": "catalog-api"
+        }
+      ],
+      "producer_id": "catalog-work",
+      "required_stage": "local_complete"
+    }
+  ],
+  "format_version": "1.0",
+  "id": "analytics-work",
+  "illustrative": true,
+  "initiative_id": "catalog-expansion",
+  "kind": "handoff",
+  "knowledge_ids": [],
+  "local_artifacts": {
+    "design": null,
+    "requirements": null,
+    "tasks": null
+  },
+  "obligations": [
+    {
+      "digest": "sha256:4d3d4ee08d2f359f4469a23a442d081170cd5e37f412e1581bb77d9e9a703d57",
+      "initiative_id": "catalog-expansion",
+      "record_id": "catalog-api"
+    }
+  ],
+  "owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "provenance": {
+    "note": "ILLUSTRATIVE synthetic scenario; no real human approval or operational result.",
+    "observed_at": "2026-09-07T12:00:00Z",
+    "review_status": "human_confirmed",
+    "sources": []
+  },
+  "receiving_owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "repository_id": "analytics",
+  "scope": "Synthetic analytics contribution",
+  "status": "approved",
+  "supplying_owner": {
+    "actor": "synthetic-owner",
+    "role": "example-reviewer"
+  },
+  "trace": []
+}
