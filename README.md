@@ -1,4 +1,13 @@
-# Organizational SDD Codex Skills
+# Spec-Driven Development for Organizations
+
+As AI continues to force us 
+
+> Any organization that designs a system (defined broadly) will produce a design whose structure is a copy of the organization's communication structure.
+>
+> -- Melvin Conway
+
+
+## Organizational SDD Codex Skills
 
 Federated Specification-Driven Development (SDD) for engineering organizations: coordinate cross-team initiatives through shared contracts, explicit ownership, revision-pinned handoffs, and integration evidence while each team retains control of its repository and delivery workflow.
 
