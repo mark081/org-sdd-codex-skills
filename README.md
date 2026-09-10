@@ -16,7 +16,14 @@ This governance is managed at the repo layer and doesn't require any service or 
 
 ## Organizational SDD Codex Skills
 
-Federated Specification-Driven Development (SDD) for engineering organizations: coordinate cross-team initiatives through shared contracts, explicit ownership, revision-pinned handoffs, and integration evidence while each team retains control of its repository and delivery workflow.
+### Federated Specification-Driven Development (SDD) for engineering organizations: 
+Coordinate cross-team initiatives through: 
+- shared contracts
+- explicit ownership
+- revision-pinned handoffs
+- integration evidence
+
+Each team retains control of its repository and delivery workflow.
 
 This is the organizational agentic architecture layer **above the individual SDD harness**. It connects independently owned local workflows; it does not replace them with a central agent or require every team to share a checkout. The package provides five Codex skills, versioned artifact contracts, reusable templates, and deterministic local validators—not a hosted control plane or autonomous swarm service.
 
