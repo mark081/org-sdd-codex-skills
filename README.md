@@ -10,9 +10,9 @@ As AI continues to force us
 >
 > -- Melvin Conway
 
-Two challenges scaled organizations face our brownfield repositories and heterogenous AI adoptions across teams. I've tried to create some Codex skills that address both by extending the notion of SDD to include a more native approach to managing context by maintaining a searchable knowledge graph (currently implemented with [graphify](https://github.com/Graphify-Labs/graphify)) and an organization governance layer which includes contracts, validation, tracabililty and evidence.
+Two challenges scaled organizations face are brownfield repositories and heterogenous AI adoptions across teams. I've tried to create a set of Codex skills that address both by extending the notion of SDD to include a more native approach to managing context by maintaining a searchable knowledge graph (currently implemented with [graphify](https://github.com/Graphify-Labs/graphify)) and an organization governance layer which includes contracts, validation, tracabililty and evidence.
 
-I am attempting to manage this governance at the repo layer and not require any service or agent layer.
+This governance is managed at the repo layer and doesn't require any service or agent layer.
 
 ## Organizational SDD Codex Skills
 
