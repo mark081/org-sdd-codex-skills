@@ -11,6 +11,7 @@ import json
 import os
 import stat
 import subprocess
+from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -150,6 +151,32 @@ class SourceResolver:
         self.roots = {key: (Path(value["root"]).resolve(strict=True), value["basis"]) for key, value in mapping["repositories"].items()}
         self.registered_ids = set(registered_ids) | {"coordination"}
         self.timeout = timeout
+        self._cache = None
+
+    @contextmanager
+    def evaluation(self):
+        """Cache successful reads only for this synchronous evaluation.
+
+        Git sources pin immutable commits. Snapshot cache hits additionally
+        recheck containment and file identity; no cache survives a new run.
+        Callers must not mutate mapped Git stores during an evaluation.
+        """
+        previous = self._cache
+        self._cache = {}
+        try:
+            yield
+        finally:
+            self._cache = previous
+
+    def _snapshot_identity(self, root, path):
+        candidate = (root / path).resolve(strict=True)
+        if not candidate.is_relative_to(root):
+            raise ReferenceFailure("PATH_UNSAFE", "path", "Source escapes mapped root")
+        info = candidate.stat()
+        if not stat.S_ISREG(info.st_mode):
+            raise ReferenceFailure("PATH_UNSAFE", "path", "Source must be a regular file")
+        return (str(candidate), info.st_dev, info.st_ino, info.st_size,
+                info.st_mtime_ns, info.st_ctime_ns)
 
     def _git(self, root, *args):
         # No ambient repository, alternate object store, replacement objects,
@@ -219,14 +246,24 @@ class SourceResolver:
             if source["repository_id"] not in self.registered_ids or source["repository_id"] not in self.roots:
                 raise ReferenceFailure("REFERENCE_UNRESOLVED", "repository_id", "Supply an authorized mapping for this source")
             root, basis = self.roots[source["repository_id"]]
+            key = (str(root), basis, tuple(sorted(source.items())))
+            stamp = self._snapshot_identity(root, source["path"]) if source["basis"] == "snapshot" and self._cache is not None else None
+            if self._cache is not None and key in self._cache:
+                cached_stamp, content = self._cache[key]
+                if cached_stamp == stamp:
+                    return Resolution(content, dict(source), [])
             if source["basis"] == "git":
                 if basis != "git": raise ReferenceFailure("REFERENCE_UNRESOLVED", "basis", "Snapshot mapping cannot verify Git identity")
                 content = self._git_source(root, source)
             else: content = self._snapshot(root, source["path"])
             if byte_digest(content) != source["digest"]: raise ReferenceFailure("DIGEST_MISMATCH", "digest", "Source bytes differ from declared baseline")
+            if self._cache is not None:
+                if source["basis"] == "git" or stamp == self._snapshot_identity(root, source["path"]):
+                    self._cache[key] = (stamp, content)
             return Resolution(content, source, [])
-        except (UnicodeError, ValueError) as exc:
+        except (OSError, RuntimeError, UnicodeError, ValueError) as exc:
             if isinstance(exc, ReferenceFailure): failure = exc
+            elif isinstance(exc, (OSError, RuntimeError)): failure = ReferenceFailure("REFERENCE_UNRESOLVED", message="Authorized source unavailable")
             else: failure = ReferenceFailure("FORMAT_INVALID", message="Source identity could not be decoded")
             d = failure.diagnostic
             return Resolution(None, source, [Diagnostic(d.code, file, v.record_id, field + ("." + d.field if d.field else ""), d.message)])

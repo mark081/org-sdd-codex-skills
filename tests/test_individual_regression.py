@@ -54,9 +54,46 @@ class IndividualRegression(unittest.TestCase):
         path.write_text(path.read_text(encoding="utf-8").replace("[ ] 3.", "[x] 3."), encoding="utf-8")
         self.check(self.command(GRAPH, path))
         self.assertEqual(json.loads(self.check(self.command(WAVE, path)).stdout)["status"], "complete")
-        # Preserve and document the legacy spec check: all-complete TASKS has
-        # no unchecked task, so full spec validation returns 1, not a repaired API.
+        # Planning still requires pending work; completion is an explicit mode.
         self.check(self.command(SPEC, "--project", self.project, "--stage", "all"), 1)
+        self.check(self.command(SPEC, "--project", self.project, "--stage", "all", "--completed"))
+
+    def test_completion_mode_rejects_pending_work_and_wrong_stage(self):
+        self.check(self.command(SPEC, "--project", self.project, "--completed"), 1)
+        self.check(self.command(SPEC, "--project", self.project, "--stage", "requirements", "--completed"), 2)
+
+    def test_omitted_leaf_and_duplicate_declarations_fail_both_tools(self):
+        path = self.project / "TASKS.md"
+        original = path.read_text(encoding="utf-8")
+        for extra in ("\n- [ ] 4. Omitted work\n", "\n- [x] 1. Duplicate declaration\n"):
+            path.write_text(original + extra, encoding="utf-8")
+            for tool in (GRAPH, WAVE):
+                self.check(self.command(tool, path), 1)
+
+    def test_group_tasks_need_not_be_scheduled_but_all_leaves_must_be(self):
+        path = self.project / "TASKS.md"
+        text = '- [ ] 1. Group\n- [x] 1.1. Done\n- [ ] 1.2. Pending\n## Task Dependency Graph\n```json\n'
+        graph = dict(waves=[dict(id=0, tasks=["1.1", "1.2"])])
+        path.write_text(text + json.dumps(graph) + '\n```\n', encoding="utf-8")
+        self.check(self.command(GRAPH, path))
+        result = json.loads(self.check(self.command(WAVE, path)).stdout)
+        self.assertEqual([t["id"] for t in result["tasks"]], ["1.2"])
+        graph["waves"][0]["tasks"] = ["1.1"]
+        path.write_text(text + json.dumps(graph) + '\n```\n', encoding="utf-8")
+        for tool in (GRAPH, WAVE): self.check(self.command(tool, path), 1)
+
+    def test_large_wave_and_duplicates(self):
+        path = self.project / "TASKS.md"
+        ids = [str(i) for i in range(1, 5001)]
+        text = ''.join(f'- [x] {i}. Done\n' for i in ids)
+        text += '## Task Dependency Graph\n```json\n'
+        graph = dict(waves=[dict(id=0, tasks=ids)])
+        path.write_text(text + json.dumps(graph) + '\n```\n', encoding="utf-8")
+        self.check(self.command(GRAPH, path))
+        self.assertEqual(json.loads(self.check(self.command(WAVE, path)).stdout)["status"], "complete")
+        graph["waves"][0]["tasks"].append("1")
+        path.write_text(text + json.dumps(graph) + '\n```\n', encoding="utf-8")
+        for tool in (GRAPH, WAVE): self.check(self.command(tool, path), 1)
 
     def test_invalid_local_graph_still_fails_both_existing_tools(self):
         path = self.project / "TASKS.md"

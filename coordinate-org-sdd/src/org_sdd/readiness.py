@@ -134,7 +134,7 @@ class ReadinessEvaluator:
         dependency = detail["dependency"]
         errors = []
         for ref in dependency["obligations"]:
-            if record_digest(self.records[ref["record_id"]]) != ref["digest"]:
+            if self.approvals.digest(self.records[ref["record_id"]]) != ref["digest"]:
                 errors.append(self.error(handoff_id, detail["field"] + ".obligations", "DIGEST_MISMATCH", "Dependency obligation revision changed"))
         for identity in dependency["evidence_ids"]:
             evidence = self.records[identity]
@@ -178,11 +178,11 @@ class ReadinessEvaluator:
             checks.update(self.records[contract_id]["acceptance_checks"])
         if not checks:
             errors.append(self.error(initiative["id"], "integration_checks", "EVIDENCE_MISSING", "Supply required integration acceptance checks"))
-        check_map = {c["id"]: c for c in initiative["checks"]}
+        check_map = self.approvals.checks()
         local_ids = {identity for hid in initiative["required_handoffs"] for identity in self.records[hid]["completion_evidence_ids"]}
         for check_id in sorted(checks):
             check = check_map[check_id]
-            candidates = [r["id"] for r in self.records.values() if r["kind"] == "evidence" and r["purpose"] == "verification"
+            candidates = [r["id"] for r in self.approvals.evidence_for(check_id) if r["purpose"] == "verification"
                           and r["check_id"] == check_id and r["status"] not in ("superseded", "withdrawn")
                           and (check["stage"] == "integration" or r["id"] in local_ids)]
             result = self.evidence.verification(check_id, candidates)
@@ -255,6 +255,14 @@ class ReadinessEvaluator:
         return result
 
     def evaluate(self, handoff_id=None, stage=None, candidate_tasks=None):
+        # Dataset is fixed during the call; all derived state is rebuilt next run.
+        self.graph = build_graph(self.dataset)
+        if not self.dataset.valid:
+            return self._evaluate(handoff_id, stage, candidate_tasks)
+        with self.resolver.evaluation(), self.approvals.evaluation():
+            return self._evaluate(handoff_id, stage, candidate_tasks)
+
+    def _evaluate(self, handoff_id=None, stage=None, candidate_tasks=None):
         self.memo = {}; self.currency = {}; self.selected_evidence = set(); self.selected_knowledge = set(); self.release_scope = None
         scope = dict(handoff_id=handoff_id, stage=stage)
         if not self.graph.structural_valid:

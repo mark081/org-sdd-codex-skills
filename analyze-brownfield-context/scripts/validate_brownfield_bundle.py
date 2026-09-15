@@ -20,7 +20,7 @@ except ImportError:  # pragma: no cover
     yaml = None
 
 
-FRONTMATTER = re.compile(r"\A---\n(.*?)\n---(?:\n|\Z)", re.S)
+FRONTMATTER = re.compile(r"\A---\r?\n(.*?)\r?\n---(?:\r?\n|\Z)", re.S)
 LINK = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
 ACTOR = re.compile(r"^(?:human:[^/\s]+|process:[^/\s]+|[^/\s]+/[^/\s]+)$")
 SHA256 = re.compile(r"^[0-9a-f]{64}$")

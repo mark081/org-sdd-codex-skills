@@ -58,6 +58,16 @@ Automated checkpoints require all listed commands and artifacts. Human governanc
 
 ## Recovery
 
+Every executable leaf must appear in exactly one wave. Dotted ancestor IDs are
+groups and may be omitted; separately executable group work needs a leaf ID.
+Duplicate task declarations or omitted leaves are invalid, not completed work.
+If a group is explicitly scheduled, its checkbox must also be completed.
+
+When `next_wave.py` reports complete, use the installed `spec-to-task-plan`
+validator with `--project <root> --stage all --completed` and its task graph
+validator for final artifact checks. These checks do not replace code tests,
+completion evidence, or human approvals.
+
 On interruption, rerun `next_wave.py`, inspect the worktree and task evidence, and verify partially completed work. Never assume an unchecked task has no changes or a checked task is correct merely because of its checkbox.
 
 ## Explicit organizational participation

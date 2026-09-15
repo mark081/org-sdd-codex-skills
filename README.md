@@ -298,6 +298,31 @@ The skills honor the nearest `AGENTS.md`. The planning workflow currently uses e
 
 ## Requirements
 
+### Validate a finished local plan
+
+After implementation, run these from this skills checkout against the team's project:
+
+```sh
+python3 spec-to-task-plan/scripts/validate_spec.py --project <project-root> --stage all --completed
+python3 spec-to-task-plan/scripts/validate_task_graph.py <project-root>/TASKS.md
+python3 execute-task-waves/scripts/next_wave.py <project-root>/TASKS.md
+```
+
+PowerShell users can use `python` with the same arguments. Quote paths containing
+spaces. The default specification check still requires pending work for planning;
+`--completed` instead requires all leaf tasks complete. Every leaf must be
+scheduled exactly once. Dotted ancestors are grouping tasks and may be omitted;
+explicitly scheduled groups still control wave progress. None of these checks
+replaces tests, completion evidence, or approval.
+
+Organizational readiness uses evaluation-local source and record caches. Each
+new call discards them and recomputes approvals; snapshot cache hits recheck file
+identity and containment. Evaluate fixed record/Git baselines without concurrent
+edits, then rerun after changes. This is not a persistent readiness cache or a
+claim that inaccessible remote sources are current.
+
+### Runtime dependencies
+
 - Codex with local skill support
 - CPython 3.11–3.14 for the supported tooling range; Git on PATH for revision/fixture checks
 - PyYAML 6.0.3 for the brownfield validator and full regression suite

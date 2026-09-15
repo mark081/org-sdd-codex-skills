@@ -7,6 +7,9 @@ import argparse
 import re
 import sys
 from pathlib import Path
+from validate_task_graph import leaf_ids
+
+TASK_STATE = re.compile(r"^\s*- \[([ xX])\]\*?\s+(\d+(?:\.\d+)*)(?:\.)?\s+", re.M)
 
 
 REQ_ID = re.compile(r"(?<![A-Z0-9])[A-Z][A-Z0-9]*-[A-Z][A-Z0-9]*-\d{3}(?![A-Z0-9])")
@@ -45,7 +48,7 @@ def requirements(project: Path) -> tuple[str, set[str], list[str]]:
     return text, set(ids), errors
 
 
-def validate(project: Path, stage: str) -> list[str]:
+def validate(project: Path, stage: str, completed: bool = False) -> list[str]:
     _, ids, errors = requirements(project)
     if stage in {"design", "tasks", "all"}:
         design = read(project / "DESIGN.md")
@@ -62,7 +65,15 @@ def validate(project: Path, stage: str) -> list[str]:
             errors.append("TASKS.md missing requirement references: " + ", ".join(missing))
         if "## Task Dependency Graph" not in tasks:
             errors.append("TASKS.md missing dependency graph")
-        if not re.search(r"^\s*- \[ \] \d+(?:\.\d+)?\.", tasks, re.M):
+        states = TASK_STATE.findall(tasks)
+        if completed:
+            leaves = leaf_ids({identity for _, identity in states})
+            pending = sorted(identity for mark, identity in states if identity in leaves and mark == " ")
+            if not leaves:
+                errors.append("TASKS.md contains no numbered leaf tasks")
+            if pending:
+                errors.append("TASKS.md contains incomplete leaf tasks: " + ", ".join(pending))
+        elif not any(mark == " " for mark, _ in states):
             errors.append("TASKS.md contains no unchecked numbered tasks")
     return errors
 
@@ -71,9 +82,12 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--project", type=Path, required=True)
     parser.add_argument("--stage", choices=("requirements", "design", "tasks", "all"), default="all")
+    parser.add_argument("--completed", action="store_true", help="Require completed leaf tasks instead of pending work; also run graph validation separately")
     args = parser.parse_args()
+    if args.completed and args.stage not in ("tasks", "all"):
+        parser.error("--completed requires --stage tasks or all")
     try:
-        errors = validate(args.project.resolve(), args.stage)
+        errors = validate(args.project.resolve(), args.stage, completed=args.completed)
     except (OSError, ValueError) as exc:
         print(f"ERROR: {exc}")
         return 2

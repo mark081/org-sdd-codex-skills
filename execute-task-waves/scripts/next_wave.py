@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import json
 import re
 import sys
@@ -16,9 +17,13 @@ GRAPH = re.compile(r"## Task Dependency Graph.*?```json\s*(\{.*?\})\s*```", re.S
 
 def parse(path: Path) -> dict:
     text = path.read_text(encoding="utf-8")
+    declarations = TASK_LINE.findall(text)
+    repeated = sorted(identity for identity, count in Counter(t[1] for t in declarations).items() if count > 1)
+    if repeated:
+        raise ValueError("duplicate task declarations: " + ", ".join(repeated))
     tasks = {
         task_id: {"complete": mark.lower() == "x", "title": title.strip()}
-        for mark, task_id, title in TASK_LINE.findall(text)
+        for mark, task_id, title in declarations
     }
     match = GRAPH.search(text)
     if not match:
@@ -41,6 +46,12 @@ def parse(path: Path) -> dict:
             if item in scheduled:
                 raise ValueError(f"task {item} appears in multiple waves")
             scheduled.add(item)
+    # Dotted ancestors are groups, not implicitly executable leaf work.
+    parents = {identity.rsplit('.', depth)[0]
+               for identity in tasks for depth in range(1, identity.count('.') + 1)}
+    missing = set(tasks) - parents - scheduled
+    if missing:
+        raise ValueError("unscheduled leaf tasks: " + ", ".join(sorted(missing)))
     for wave in waves:
         pending = [str(item) for item in wave["tasks"] if not tasks[str(item)]["complete"]]
         if pending:

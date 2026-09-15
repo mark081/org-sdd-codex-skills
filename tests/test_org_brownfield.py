@@ -77,6 +77,16 @@ class BrownfieldBoundary(unittest.TestCase):
         self.assertFalse((self.project / ".sdd/org").exists())
         self.assertFalse((self.project / "graphify-out").exists())
 
+    def test_frontmatter_accepts_lf_and_crlf_without_changing_bytes(self):
+        path = self.knowledge / "event.md"
+        for newline in (b"\n", b"\r\n"):
+            payload = newline.join((b"---", b"status: draft", b"---", b"Body", b""))
+            path.write_bytes(payload)
+            errors = []
+            self.assertEqual(BROWNFIELD.parse_frontmatter(path, payload.decode("utf-8"), errors), {"status": "draft"})
+            self.assertEqual(errors, [])
+            self.assertEqual(path.read_bytes(), payload)
+
     def test_provenance_extensions_remain_unreviewed_and_are_not_rewritten(self):
         boundary = dict(owner={"unresolved": "assign-owner"},
                         contract={"initiative_id": "demo", "record_id": "api", "digest": "sha256:" + "a" * 64},

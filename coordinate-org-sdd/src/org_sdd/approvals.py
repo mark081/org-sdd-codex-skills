@@ -7,6 +7,7 @@ future completion requirement is inferred here. changed_impact reports reverse
 reference impact conservatively, independently of gate-specific readiness.
 """
 from dataclasses import dataclass
+from contextlib import contextmanager
 
 from .diagnostics import Diagnostic, sorted_diagnostics
 from .records import RR, SR, walk
@@ -29,12 +30,55 @@ class ApprovalEvaluator:
         self.initiative = dataset.initiative
         self.resolver = resolver
         self.allow_illustrative = allow_illustrative
+        self._index = None
+
+    @contextmanager
+    def evaluation(self):
+        """Indexes/digests for a fixed in-memory dataset, discarded on exit.
+
+        Direct ApprovalEvaluator calls remain uncached. The readiness caller
+        owns this synchronous scope and must not edit records inside it.
+        """
+        previous = self._index
+        approvals = sorted((r for r in self.records.values() if r["kind"] == "approval"), key=lambda r: r["id"])
+        by_target, evidence = {}, {}
+        for record in approvals:
+            key = (record["gate"], record["target"]["record_id"], record["target"]["type"])
+            by_target.setdefault(key, []).append(record)
+        for record in self.records.values():
+            if record["kind"] == "evidence":
+                evidence.setdefault(record["check_id"], []).append(record)
+        self._index = dict(approvals=approvals, by_target=by_target, evidence=evidence,
+                          roles={r["role"]: r["actors"] for r in self.initiative["policy"]["role_assignments"]},
+                          gates={r["gate"]: r["required_roles"] for r in self.initiative["policy"]["gates"]},
+                          checks={r["id"]: r for r in self.initiative["checks"]}, digests={}, policy=None)
+        try:
+            yield
+        finally:
+            self._index = previous
+
+    def digest(self, record):
+        if self._index is None: return record_digest(record)
+        key = record["id"]
+        if key not in self._index["digests"]:
+            self._index["digests"][key] = record_digest(record)
+        return self._index["digests"][key]
+
+    def roles(self):
+        return self._index["roles"] if self._index is not None else {r["role"]: r["actors"] for r in self.initiative["policy"]["role_assignments"]}
+
+    def checks(self):
+        return self._index["checks"] if self._index is not None else {r["id"]: r for r in self.initiative["checks"]}
+
+    def evidence_for(self, check_id):
+        if self._index is not None: return self._index["evidence"].get(check_id, ())
+        return [r for r in self.records.values() if r["kind"] == "evidence" and r["check_id"] == check_id]
 
     def diagnostic(self, identity, field, code, message):
         return Diagnostic(code, self.dataset.files.get(identity, "<record>"), identity, field, message)
 
     def owner_diagnostics(self, owner, identity, field="owner"):
-        roles = {r["role"]: r["actors"] for r in self.initiative["policy"]["role_assignments"]}
+        roles = self.roles()
         if "unresolved" in owner or owner.get("actor") not in roles.get(owner.get("role"), []):
             return [self.diagnostic(identity, field, "OWNER_UNRESOLVED", "Supply an accountable owner matching a recorded role assignment")]
         return []
@@ -51,7 +95,7 @@ class ApprovalEvaluator:
                     record = self.records.get(item["record_id"])
                     if record is None or record["initiative_id"] != item["initiative_id"]:
                         diagnostics.append(self.diagnostic(identity, child_field, "REFERENCE_UNRESOLVED", "Referenced record is unavailable"))
-                    elif record_digest(record) != item["digest"]:
+                    elif self.digest(record) != item["digest"]:
                         diagnostics.append(self.diagnostic(identity, child_field, "DIGEST_MISMATCH", "Referenced record differs from pinned baseline"))
                     else: inspect_record(record)
         def inspect_record(record):
@@ -101,8 +145,8 @@ class ApprovalEvaluator:
         if target["illustrative"] and not self.allow_illustrative:
             diagnostics.append(self.diagnostic(target_id, "illustrative", "ILLUSTRATIVE_ONLY", "Synthetic records cannot authorize production work"))
         policy = self.initiative["policy"]
-        roles = {entry["role"]: entry["actors"] for entry in policy["role_assignments"]}
-        required = next((entry["required_roles"] for entry in policy["gates"] if entry["gate"] == gate), [])
+        roles = self.roles()
+        required = self._index["gates"].get(gate, []) if self._index is not None else next((entry["required_roles"] for entry in policy["gates"] if entry["gate"] == gate), [])
         if not required or any(not roles.get(role) for role in required):
             diagnostics.append(self.diagnostic(target_id, "policy.gates", "POLICY_UNRESOLVED", "Supply nonempty gate role assignments"))
         for decision in self.initiative["decisions"]:
@@ -121,13 +165,18 @@ class ApprovalEvaluator:
             if release_scope is None:
                 return ApprovalResult(False, [], diagnostics + [self.diagnostic(target_id, "release_scope", "REFERENCE_UNRESOLVED", "Supply explicitly selected current release scope")])
             digest = byte_digest(canonical_bytes(release_scope))
-        else: digest = record_digest(target)
+        else: digest = self.digest(target)
         reference_errors = self.reference_diagnostics(target, gate, source)
         diagnostics.extend(reference_errors)
         if reference_errors or prerequisite_diagnostics:
             diagnostics.append(self.diagnostic(target_id, "target", "APPROVAL_STALE", "Approval prerequisites need revalidation"))
-        current_policy = policy_digest(self.initiative)
-        all_approvals = [r for r in self.records.values() if r["kind"] == "approval"]
+        if self._index is not None:
+            if self._index["policy"] is None: self._index["policy"] = policy_digest(self.initiative)
+            current_policy = self._index["policy"]
+            all_approvals = self._index["approvals"]
+        else:
+            current_policy = policy_digest(self.initiative)
+            all_approvals = sorted((r for r in self.records.values() if r["kind"] == "approval"), key=lambda r: r["id"])
         def captured(record, verify_sources=False):
             return (record["status"] == "approved" and record["provenance"]["review_status"] == "human_confirmed"
                     and record["actor"] in roles.get(record["role"], [])
@@ -140,7 +189,8 @@ class ApprovalEvaluator:
         accepted = []
         stale = []
         stale_roles = set()
-        for approval in sorted(all_approvals, key=lambda r: r["id"]):
+        candidates = self._index["by_target"].get((gate, target_id, target_type), ()) if self._index is not None else all_approvals
+        for approval in candidates:
             pin = approval["target"]
             if approval["gate"] != gate or pin["record_id"] != target_id or pin["type"] != target_type: continue
             if approval["role"] not in required: continue

@@ -86,6 +86,16 @@ class References(unittest.TestCase):
             revision = git("rev-parse", "HEAD").decode()
             src = source(); src.update(basis="git", revision=revision, digest=byte_digest(b"committed\n"))
             resolver = SourceResolver(mapping(root, "git"), [], root)
+            with patch.object(resolver, "_git", wraps=resolver._git) as reads:
+                with resolver.evaluation():
+                    self.assertTrue(resolver.resolve(src).valid)
+                    self.assertTrue(resolver.resolve(src).valid)
+                    self.assertEqual(reads.call_count, 5)
+                    wrong = dict(src, digest=byte_digest(b"wrong"))
+                    self.assertEqual(resolver.resolve(wrong).diagnostics[0].code, "DIGEST_MISMATCH")
+                before = reads.call_count
+                self.assertTrue(resolver.resolve(src).valid)
+                self.assertEqual(reads.call_count, before + 5)
             (root / "source.txt").write_bytes(b"working copy changed")
             with patch.dict(os.environ, {"GIT_DIR": "/bad", "GIT_WORK_TREE": "/bad", "GIT_OBJECT_DIRECTORY": "/bad", "GIT_INDEX_FILE": "/bad", "GIT_ALTERNATE_OBJECT_DIRECTORIES": "/bad"}):
                 self.assertTrue(resolver.resolve(src).valid)

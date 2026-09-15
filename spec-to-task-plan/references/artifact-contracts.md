@@ -75,6 +75,17 @@ Leaf task format:
 
 Tasks in one wave must be independent. If they may edit the same files or schema, serialize them or explicitly assign integration ownership. Never place dependent waves in parallel.
 
+Every numbered leaf task must appear in exactly one wave, whether pending or
+complete. IDs must be unique in the task declarations. A dotted ancestor (for
+example, `2` when `2.1` exists) is a grouping task and may be omitted from the
+graph; any separate executable work under that heading must have its own leaf
+ID. If a group is explicitly scheduled, its checkbox also controls wave progress.
+
+Planning validation requires pending work by default. After implementation,
+use `validate_spec.py --project <root> --stage all --completed` to require all
+leaf tasks complete, and still run `validate_task_graph.py <root>/TASKS.md`.
+Completion validation checks artifacts, not implementation evidence or approval.
+
 ## Explicit organizational participation
 
 Add an organizational traceability section to each local artifact only when participation is explicit. Follow [organizational-planning.md](organizational-planning.md) for exact obligation pins, stage-specific coverage, non-applicability evidence, and handoff reconciliation. These sections supplement rather than replace local requirement IDs, design properties, task graphs, or approvals.

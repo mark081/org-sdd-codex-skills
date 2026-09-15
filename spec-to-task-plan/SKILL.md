@@ -79,3 +79,5 @@ Do not begin task execution. Recommend `$execute-task-waves` only after explicit
 ## Completion
 
 Finish when all three artifacts exist, validate, and have separate explicit approvals. Report the exact next invocation for implementation.
+
+For post-implementation artifact checks only, `scripts/validate_spec.py --project <project-root> --stage all --completed` requires completed leaf tasks instead of pending work. Also run the task graph validator; this mode neither executes work nor supplies approval or verification evidence.

@@ -86,7 +86,7 @@ class EvidenceEvaluator:
 
     def verification(self, check_id, evidence_ids):
         if not self.dataset.valid: return self.result([], list(self.dataset.diagnostics))
-        check = next((c for c in self.initiative["checks"] if c["id"] == check_id), None)
+        check = self.approvals.checks().get(check_id)
         if check is None:
             return self.result([], [self.error(self.initiative["id"], "checks", "EVIDENCE_MISSING", "Register the required check")])
         diagnostics = self.approvals.owner_diagnostics(check["owner"], self.initiative["id"], "checks.owner")
@@ -103,7 +103,7 @@ class EvidenceEvaluator:
             selected.append(identity)
         # Multiple distinct active results are ambiguous, never timestamp-ranked.
         active = [self.records[i] for i in selected if self.records[i]["status"] not in ("superseded", "withdrawn")]
-        if len({record_digest(record) for record in active}) > 1:
+        if len({self.approvals.digest(record) for record in active}) > 1:
             diagnostics.append(self.error(self.initiative["id"], "checks", "EVIDENCE_CONFLICT", "Select one unambiguous current result per check"))
         return self.result(selected, diagnostics)
 
