@@ -1,4 +1,4 @@
 interface:
   display_name: "Analyze Brownfield Context"
   short_description: "Build curated OKF context from existing code"
-  default_prompt: "Use $analyze-brownfield-context to map this repository with Graphify and create or refresh its reviewed OKF knowledge bundle."
+  default_prompt: "Use $analyze-brownfield-context to map this repository with Graphify and create or refresh its reviewable OKF knowledge bundle, then report validation and any required human review."

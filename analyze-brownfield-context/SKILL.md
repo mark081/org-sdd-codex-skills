@@ -24,6 +24,8 @@ Create or reconcile a reviewable knowledge baseline for an existing repository. 
 5. Preserve Graphify confidence: distinguish extracted, inferred, and ambiguous relationships. Never promote an inference to a verified fact merely because it appears in the graph.
 6. For an initial bundle only, run `python3 scripts/validate_brownfield_bundle.py --project <project-root> --write-manifest` from this skill directory to snapshot the per-path source baseline before writing concept metadata. For an existing bundle, preserve its manifest and follow Update Mode instead. Use `uv run --with pyyaml python` when PyYAML is unavailable.
 
+Graphify can reach 100% file parsing while still resolving cross-file relationships. Track the command through its actual process or tool session using bounded output waits, and report the observed phase and progress about once a minute during long runs. Silence alone does not establish a hang; confirm command exit and its result before claiming the graph refresh is complete. Once the command finishes, continue to curation and validation instead of waiting on its completed session.
+
 ## Curate the OKF Bundle
 
 Create or reconcile `.sdd/knowledge/` as an OKF v0.2 bundle. Start with the smallest useful set of concepts:
@@ -56,9 +58,10 @@ For participating repositories, curate relevant ownership, shared-contract pins 
 ## Validate and Handoff
 
 1. Run `python3 scripts/validate_brownfield_bundle.py --project <project-root>` from this skill directory. Use `uv run --with pyyaml python` when PyYAML is unavailable.
-2. Report the analyzed revision, dirty-worktree state, graph refresh command, concepts created or changed, validation result, material conflicts, and blocking questions.
-3. Stop for human review when creating the initial baseline or changing a human-confirmed concept materially.
-4. Recommend `$spec-to-task-plan` only after the bundle validates. The planning skill decides which concepts are relevant and must still inspect the repository where evidence is missing or stale.
+2. Prepare a handoff report linking to the bundle and any update evidence. Include the analyzed revision, dirty-worktree state, graph refresh command, concepts created or changed, validation result, material conflicts, and blocking questions.
+3. For a standalone invocation, deliver the report in the final response and end the turn when the requested analysis and validation are finished. A validated draft ready for review completes the analysis; human approval remains separate. If an unresolved blocker prevents completion, return the partial results and exact blocker in the final response.
+4. When creating the initial baseline or changing a human-confirmed concept materially, include the specific human review request in the handoff and stop before dependent work. Do not keep the active turn running or poll for that review.
+5. Recommend `$spec-to-task-plan` only after the bundle validates; a standalone analysis does not invoke planning automatically. When this skill is a stage of an explicitly requested lifecycle or execution workflow, return the evidence and review status to that caller, which owns further advancement and must honor the review gate. The planning skill decides which concepts are relevant and must still inspect the repository where evidence is missing or stale.
 
 ## Update Mode
 
@@ -72,5 +75,7 @@ When invoked after implementation:
 6. Only after reconciliation is complete, run `--write-manifest` to replace the baseline, then update `bundle-state.md` and reconciled concept source metadata with the new revision, fingerprint, and worktree state.
 7. Run ordinary validation and return the pre-update diff, dispositions, new manifest fingerprint, and validation result as evidence suitable for `TASKS.md` completion records.
 8. For organizationally relevant changes, prepare the reviewed outgoing boundary update described in [references/organizational-boundaries.md](references/organizational-boundaries.md). Check external pins even when local source paths are unchanged. Report local reconciliation, required human review and publication separately before claiming the affected handoff is current.
+
+Finish Update Mode with the same Validate and Handoff behavior, including a final response for a standalone refresh.
 
 Never claim that generated documentation is approved, never fabricate organizational policy, and never store secrets, credentials, customer data, private reasoning, or prohibited sensitive content in Graphify or OKF outputs.
