@@ -72,7 +72,7 @@ Coordination lives in a Git-based workspace under `initiatives/<initiative-id>/`
 - **`spec-to-task-plan`** turns a product or feature prompt into separately approved `REQUIREMENTS.md`, `DESIGN.md`, and `TASKS.md` artifacts.
 - **`execute-task-waves`** executes an approved `TASKS.md` plan in dependency order, verifies each wave, and records completion evidence centrally.
 
-## Quick start: see federation in action
+## Quick start: see federation in action (OPTIONAL: go directly to `run-sdd-lifecycle` if you are not connecting repos)
 
 Try the read-only [three-team tutorial](docs/organizational-sdd-tutorial.md) before installing anything. Catalog provides an API, Checkout consumes it, and Analytics consumes its derived event. Nine snapshots demonstrate shared-contract approval, blocked execution, a breaking change, migration, integration, release review, and knowledge refresh. From this checkout, with Python on PATH:
 
